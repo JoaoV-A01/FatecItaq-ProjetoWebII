@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Gerenciamento de Produtos</title>
+</head>
+<body>
+
+    <div class="card">
+        <nav>
+            <div class="item"><a href="criarUser.html">Cadastrar Usuário</a></div>
+            <div class="item"><a href="listarUsers.html">Listar todos usuarios</a></div>
+            <div class="item"><a href="buscaUser.html">Buscar Usuário</a></div>
+            <div class="item"><a href="criarProd.html">Registar Produto</a></div>
+            <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
+            <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
+        </nav>
+    <h3>Buscar Usuário</h3>
+    <label for="getProdId">ID do Produto:</label>
+    <input type="number" id="getProdId">
+    <button onclick="getProd()">Buscar</button>
+
+    <h3>Gerenciar Produto</h3>
+    <label for="inpuNome">Nome:</label>
+    <input type="text" id="inpuNome">
+    <label for="inpuNome">Preço:</label>
+    <input type="text" id="inpuPreco">
+    <label for="inpuNome">Quantidade:</label>
+    <input type="text" id="inpuQnt">
+    <button onclick="updateProd()">Atualizar</button>
+    <button onclick="deleteProd()">Excluir</button>
+</div>
+
+<script src="js/getProd.js"></script>
+<script src="js/updateProd.js"></script>
+<script src="js/deleteProd.js"></script>
+</body>
+</html>

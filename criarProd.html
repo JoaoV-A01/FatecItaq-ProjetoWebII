@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Cadastro de produtos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="card">
+        <nav>
+            <div class="item"><a href="criarUser.html">Cadastrar Usuário</a></div>
+            <div class="item"><a href="listarUsers.html">Listar todos usuarios</a></div>
+            <div class="item"><a href="buscaUser.html">Buscar Usuário</a></div>
+            <div class="item"><a href="criarProd.html">Registar Produto</a></div>
+            <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
+            <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
+        </nav>
+    <form id="prodForm">
+        <h2>Cadastro Produto</h2>
+        <label for="Nome">Nome</label><br>
+        <input type="text" id="nomeprod" name="nomeprod" required><br>
+        <label for="Preço">Preço</label><br>
+        <input type="text" id="precoprod" name="precoprod" required><br>
+        <label for="Quantidade">Quantidade</label><br>
+        <input type="text" id="qntprod" name="qntprod" required><br>
+        <button class="btnProd" type="button" id="submitButton">Registrar Produto</button>
+    </form>
+    </div>
+<script src="js/createProd.js"></script>  <!-- Supondo que sua função esteja em script.js -->
+</body>
+</html>

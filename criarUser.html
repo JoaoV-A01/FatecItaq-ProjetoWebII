@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Usuário</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="card">
+        <nav>
+            <div class="item"><a href="criarUser.html">Cadastrar Usuário</a></div>
+            <div class="item"><a href="listarUsers.html">Listar todos usuarios</a></div>
+            <div class="item"><a href="buscaUser.html">Buscar Usuário</a></div>
+            <div class="item"><a href="criarProd.html">Registar Produto</a></div>
+            <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
+            <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
+        </nav>
+        <form id="userForm">
+            <h2>Cadastro Usuario</h2>
+            <label for="Nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="Email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="Senha">Senha:</label>
+            <input type="text" id="senha" name="senha" required>
+            <button class="btnUser" type="button" id="submitButton">Criar Usuário</button>
+        </form>
+    </div>
+    <script src="js/createUser.js"></script>  <!-- Supondo que sua função esteja em script.js -->
+</body>
+</html>

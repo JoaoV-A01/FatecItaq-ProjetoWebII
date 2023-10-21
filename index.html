@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Usuarios e Produtos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="card">
+        <h1>Escolha a Opção</h1>
+        <nav>
+            <div class="item"><a href="criarUser.html">Cadastrar Usuário</a></div>
+            <div class="item"><a href="listarUsers.html">Listar todos usuarios</a></div>
+            <div class="item"><a href="buscaUser.html">Buscar Usuário</a></div>
+            <div class="item"><a href="criarProd.html">Registar Produto</a></div>
+            <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
+            <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
+        </nav>
+    </div>
+    <script>
+        window.onload = function() {
+            fetch('/backend/token')
+                .then(response => response.json())
+                .then(data => localStorage.setItem('token', data.token));
+        }
+        
+    </script>
+</body>
+</html>
