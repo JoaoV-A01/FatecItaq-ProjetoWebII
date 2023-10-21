@@ -1,0 +1,63 @@
+/*BASE*/
+* {
+    background-color: bisque;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
+    box-sizing: border-box;
+}
+nav {
+    display: flex;
+    width: 100%;
+}
+.item {
+    color: black;
+    margin: 2px;
+    width: 20%;
+    text-align: center;
+    border-right: 1px solid black;
+}
+nav, .item, a {
+    background-color: rgb(221, 149, 149);
+}
+h2 {
+    text-align: center;
+}
+label {
+    margin-left: 5px;
+}
+input {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+button {
+    font-size: medium;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+button:hover {
+    background-color: aquamarine;
+}
+/*CADASTRAR USUARIO*/
+#userForm {
+    margin-top: 10%;
+    margin-left: 40%;
+    border: 1px solid black;
+    width: 270px;
+    height: auto;
+}
+#email {
+    margin-left: 9px;
+}
+.btnUser {
+    margin-left: 30%;
+}
+/*REGISTRAR PRODUTO*/
+#prodForm {
+    margin-top: 10%;
+    margin-left: 40%;
+    border: 1px solid black;
+    width: 230px;
+    height: auto;
+}
+.btnProd {
+    margin-left: 15%;
+}
