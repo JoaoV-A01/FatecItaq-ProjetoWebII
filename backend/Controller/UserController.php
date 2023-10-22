@@ -3,13 +3,15 @@
 namespace App\Controller;
 
 use App\Model\Model;
-
+use App\Usuario\Usuario;
 class UserController {
 
     private $db;
-
+    private $usuario;
+    
     public function __construct() {
         $this->db = new Model();
+        $this->usuario = new Usuario();
     }
     public function select(){
         $user = $this->db->select('users');
@@ -22,7 +24,14 @@ class UserController {
         return  $user;
     }
     public function insert($data){
-        if($this->db->insert('users', $data)){
+        $this->usuario->setNome($data['nome']);
+        $this->usuario->setEmail($data['email']);
+        $this->usuario->setSenha($data['senha']);
+        if($this->db->insert('users', [
+            'nome'=> $this->usuario->getNome(),
+            'email'=> $this->usuario->getEmail(),
+            'senha'=> $this->usuario->getSenha(),
+        ])){
             return true;
         }
         return false;

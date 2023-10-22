@@ -34,9 +34,9 @@ function createUser() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário já existe')
+            alert('Usuário já existe!')
         }else{
-            alert("Usuário criado: " + JSON.stringify(data));
+            alert("Usuário criado");
         } 
        
     })

@@ -17,9 +17,11 @@ function getProd() {
     .then(data => {
         if(!data.status){
             alert('Produto não encontrado')
-            document.getElementById("inpuNome").value = ''; 
+            document.getElementById("inputNome").value = ''; 
         }else{
-            document.getElementById("inpuNome").value = data.produto.nome; 
+            document.getElementById("inputNome").value = data.produto.nome;
+            document.getElementById("inputPreco").value = data.produtos.preco; 
+            document.getElementById("inputQnt").value = data.produtos.quantidade;
         } 
        
     })

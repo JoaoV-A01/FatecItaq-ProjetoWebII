@@ -1,10 +1,9 @@
 document.getElementById('submitButton').addEventListener('click', createProd);
-var token = localStorage.getItem('token');
+
 function createProd() {
     const nomeProduto = document.getElementById('nomeprod').value;
     const precoProduto = document.getElementById('precoprod').value;
     const qntProduto = document.getElementById('qntprod').value;
-    
 
     if (!nomeProduto) {
         alert("Por favor, insira um nome!");
@@ -15,7 +14,6 @@ function createProd() {
         nome: nomeProduto,
         preco: precoProduto,
         quantidade: qntProduto
-        
     };
 
     fetch('/backend/produtos.php', { 

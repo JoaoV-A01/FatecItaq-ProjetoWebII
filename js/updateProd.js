@@ -1,12 +1,12 @@
 function updateProd() {
     const prodId = document.getElementById("getProdId").value;
-    const prodNome = document.getElementById("inpuNome").value;
-    const prodPreco = document.getElementById("inpuPreco").value;
-    const prodQnt = document.getElementById("inpuQnt").value;
-    const produtoAtualizado = {
-        nome: prodNome,
-        preco: prodPreco,
-        prodQnt: prodQnt
+    const nomeProd = document.getElementById("inputNome").value;
+    const precoProd = document.getElementById("inputPreco").value;
+    const qntProd = document.getElementById("inputQnt").value;
+    const prodAtualizado = {
+        nome: nomeProd,
+        preco: precoProd,
+        quantidade: qntProd
     };
 
     fetch('/backend/produtos.php?id=' + prodId, { 
@@ -14,7 +14,7 @@ function updateProd() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(produtoAtualizado)
+        body: JSON.stringify(prodAtualizado)
     })
     .then(response => {
         if (!response.ok) {
@@ -30,7 +30,7 @@ function updateProd() {
         if(!data.status){
             alert("Não pode atualizar: ");
         }else{
-            alert("Produto atualizado: " + JSON.stringify(data));
+            alert("Produto atualizado!");
         } 
         
     })

@@ -1,5 +1,9 @@
 function deleteUser() {
     const userId = document.getElementById("getUserId").value;
+    if (!userId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/usuarios.php?id=' + userId, {
         method: 'DELETE'
     })
@@ -17,8 +21,8 @@ function deleteUser() {
         if(!data.status){
             alert("Não pode Deletar: ");
         }else{
-            alert("Usuário deletado: " + JSON.stringify(data));
-            document.getElementById("inpuNome").value = ''; 
+            alert("Usuário deletado!");
+            document.getElementById("inputNome").value = ''; 
         } 
         
     })

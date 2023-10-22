@@ -28,7 +28,7 @@ function displayProds(data) {
     const list = document.createElement('ul');
     prods.forEach(produto => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${produto.id} - ${produto.nome} - ${produto.type}`;
+        listItem.textContent = `${produto.id} - ${produto.nome} - ${produto.preco} - ${produto.quantidade}`;
         list.appendChild(listItem);
     });
 

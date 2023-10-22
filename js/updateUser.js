@@ -1,12 +1,15 @@
 function updateUser() {
     const userId = document.getElementById("getUserId").value;
-    const userName = document.getElementById("inpuNome").value;
+    const userName = document.getElementById("inputNome").value;
     const userEmail = document.getElementById("inputEmail").value;
     const usuarioAtualizado = {
         nome: userName,
         email: userEmail
     };
-
+    if (!userId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/usuarios.php?id=' + userId, { 
         method: 'PUT',
         headers: {
@@ -26,9 +29,9 @@ function updateUser() {
     })
     .then(data => {
         if(!data.status){
-            alert("Não pode atualizar: ");
+            alert("Não pode atualizar!");
         }else{
-            alert("Usuário atualizado: " + JSON.stringify(data));
+            alert("Usuário atualizado!");
         } 
         
     })

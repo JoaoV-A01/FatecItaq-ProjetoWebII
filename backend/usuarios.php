@@ -17,7 +17,11 @@ switch($_SERVER["REQUEST_METHOD"]){
     case "GET";
         if(!isset($_GET['id'])){
             $resultado = $users->select();
-            echo json_encode(["usuarios"=>$resultado]);
+            if(!is_array($resultado)){
+                echo json_encode(["status"=>false]);
+                exit;
+            }
+            echo json_encode(["status"=>true,"usuarios"=>$resultado]);
         }else{
             $resultado = $users->selectId($id);
             echo json_encode(["status"=>true,"usuario"=>$resultado[0]]);

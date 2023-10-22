@@ -1,5 +1,9 @@
 function deleteProd() {
     const prodId = document.getElementById("getProdId").value;
+    if (!prodId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/produtos.php?id=' + prodId, {
         method: 'DELETE'
     })
@@ -17,8 +21,8 @@ function deleteProd() {
         if(!data.status){
             alert("Não pode Deletar: ");
         }else{
-            alert("Produto excluido: " + JSON.stringify(data));
-            document.getElementById("inpuNome").value = ''; 
+            alert("Produto excluido!");
+            document.getElementById("inputNome").value = ''; 
         } 
         
     })
