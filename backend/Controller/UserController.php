@@ -3,15 +3,19 @@
 namespace App\Controller;
 
 use App\Model\Model;
+use App\Endereco\Endereco;
+use App\Controller\EnderecoController;
 use App\Usuario\Usuario;
 class UserController {
 
     private $db;
     private $usuario;
+    private $endereco;
     
     public function __construct() {
         $this->db = new Model();
         $this->usuario = new Usuario();
+        $this->endereco = new Endereco();
     }
     public function select(){
         $user = $this->db->select('users');
@@ -32,7 +36,16 @@ class UserController {
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
         ])){
-            return true;
+            $this->endereco->setCep($data['cep']);
+            $this->endereco->setRua($data['rua']);
+            $this->endereco->setBairro($data['bairro']);
+            $this->endereco->setCidade($data['cidade']);
+            $this->endereco->setUf($data['uf']);
+            $this->endereco->setIduser($this->db->getLastInsertId());   
+            $enderecocontroller = new EnderecoController($this->endereco);  
+            if($enderecocontroller->insert()){
+                return true;
+            }
         }
         return false;
     }

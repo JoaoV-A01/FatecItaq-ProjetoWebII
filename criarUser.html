@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Usuário</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="card">
@@ -24,9 +24,23 @@
             <input type="text" id="email" name="email" required>
             <label for="Senha">Senha:</label>
             <input type="text" id="senha" name="senha" required>
+            <label>Cep:
+                <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+                       onblur="pesquisacep(this.value);" /></label><br />
+                    <label>Rua:<br>
+                    <input name="rua" type="text" id="rua" size="28" /></label><br />
+                    <label>Bairro:<br>
+                    <input name="bairro" type="text" id="bairro" size="28" /></label><br />
+                    <label>Cidade:
+                    <input name="cidade" type="text" id="cidade" size="19" /></label><br />
+                    <label>Estado:
+                    <input name="uf" type="text" id="uf" size="2" /></label><br />
+                    <label>IBGE:
+                    <input name="ibge" type="text" id="ibge" size="8" /></label><br />
             <button class="btnUser" type="button" id="submitButton">Criar Usuário</button>
         </form>
     </div>
-    <script src="js/createUser.js"></script>  <!-- Supondo que sua função esteja em script.js -->
+    <script src="js/createUser.js"></script>
+    <script src="js/cep.js"></script>  
 </body>
 </html>
