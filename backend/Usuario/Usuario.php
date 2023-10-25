@@ -4,6 +4,7 @@ class Usuario {
     private $id;
     private $nome;
     private $email;
+    private $datanasc;
     private $senha;
 
     public function __construct() {
@@ -29,6 +30,12 @@ class Usuario {
     }
     public function setEmail($email) {
         $this->email = $email;
+    }
+    public function getDataNascimento() {
+        return $this->datanasc;
+    }
+    public function setDataNascimento($datanasc) {
+        $this->datanasc = $datanasc;
     }
     public function setSenha($senha) {
         $this->senha = password_hash($senha, PASSWORD_DEFAULT);

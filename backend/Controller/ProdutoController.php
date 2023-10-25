@@ -16,6 +16,11 @@ class ProdutoController {
         
         return  $produto;
     }
+    public function selectId($id){
+        $user = $this->db->select('produtos',['id'=>$id]);
+        
+        return  $user;
+    }
     public function insert($data){
         if($this->db->insert('produtos', $data)){
             return true;

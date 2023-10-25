@@ -3,6 +3,7 @@ function createUser() {
     const nomeUsuario = document.getElementById('nome').value;
     const emailUsuario = document.getElementById('email').value;
     const senhaUsuario = document.getElementById('senha').value;
+    const nascUsuario = document.getElementById('nasc').value;
     const cepUsuario = document.getElementById('cep').value;
     const ruaUsuario = document.getElementById('rua').value;
     const bairroUsuario = document.getElementById('bairro').value;
@@ -22,6 +23,7 @@ function createUser() {
         nome: nomeUsuario,
         email: emailUsuario,
         senha: senhaUsuario,
+        datanasc: nascUsuario,
         cep: cepUsuario,
         rua: ruaUsuario,
         bairro: bairroUsuario,

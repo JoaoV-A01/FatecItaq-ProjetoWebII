@@ -1,8 +1,13 @@
 <?php
 namespace App\Model;
+
 use Exception;
 use PDO;
 use PDOException;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionProperty;
+
  class Model {
  private $host = "localhost";
  private $db_name = "test_drive";
@@ -10,33 +15,6 @@ use PDOException;
  private $password = "root123";
  private $conn;
  private $db_type = "sqlite"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
-/*Dependendo do tipo de banco de dados escolhido, você pode precisar ajustar os parâmetros de conexão ($host, $db_name, $username e $password) da seguinte forma:
-
-          MySQL:
-          
-          $host: Endereço do servidor MySQL (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados MySQL
-          $username: Nome de usuário para acessar o banco de dados MySQL
-          $password: Senha para acessar o banco de dados MySQL
-          PostgreSQL:
-          
-          $host: Endereço do servidor PostgreSQL (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados PostgreSQL
-          $username: Nome de usuário para acessar o banco de dados PostgreSQL
-          $password: Senha para acessar o banco de dados PostgreSQL
-          SQLite:
-          
-          $host: Não é necessário para SQLite, pois é um banco de dados baseado em arquivo
-          $db_name: Caminho completo para o arquivo do banco de dados SQLite (por exemplo, 'my_database.sqlite')
-          $username: Não é necessário para SQLite
-          $password: Não é necessário para SQLite
-          SQL Server (MSSQL):
-          
-          $host: Endereço do servidor SQL Server (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados SQL Server
-          $username: Nome de usuário para acessar o banco de dados SQL Server
-          $password: Senha para acessar o banco de dados SQL Server
-          */
 
  public function __construct() {
      $this->connect();
@@ -146,4 +124,168 @@ public function delete($table, $conditions) {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
+    public function CallInsert($table, $data) {
+        $placeholders = implode(", ", array_map(function($item) {
+            return ":$item"; 
+        }, array_keys($data)));
+        $query = "CALL Insert{$table}({$placeholders})";
+    
+        $stmt = $this->conn->prepare($query);
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        return $stmt->execute();
+    }
+    public function callDelete($table, $conditions) {
+        $conditionPlaceholders = implode(", ", array_map(function($item) {
+            return ":$item";
+        }, array_keys($conditions)));
+        $query = "CALL Delete{$table}({$conditionPlaceholders})";
+        $stmt = $this->conn->prepare($query);
+        foreach ($conditions as $key => $value) {
+            $stmt->bindValue(":$key", $value);
+        }
+        return $stmt->execute();
+    }
+    public function deleteWithCustomCondition($table, $condition) {
+        $query = "DELETE FROM $table WHERE $condition";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute();
+    }
+    
+    private function mapPhpTypeToSqlType($type) {
+        switch ($type) {
+            case 'int':
+                return "INT";
+            case 'float':
+                return "FLOAT";
+            case 'DateTime':
+                return "DATETIME";
+            case 'string':
+                return "VARCHAR(255)";
+            case 'bool':
+                return "BOOLEAN";
+            default:
+                throw new Exception("Tipo PHP não mapeado: $type");
+            }
+        }
+        
+        public function createTableFromModel($model) {
+            try{
+                $reflection = new ReflectionClass($model);
+                $properties = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
+                $columns = [];
+                $columnNames = [];  
+            foreach ($properties as $property) {
+                $columnName = $property->getName();
+                $type = $property->getType()->getName();
+                if (!$type) {
+                    continue; 
+                }
+                $sqlType = $this->mapPhpTypeToSqlType($type);
+                $columns[] = "{$columnName} {$sqlType}";
+                $columnNames[] = $columnName;
+            }
+        
+            $tableName = str_replace('App','',str_replace('Model','',str_replace('\\','',$reflection->getName())));
+            
+            $columnsSql = implode(', ', $columns);
+            $createTableSql = "CREATE TABLE IF NOT EXISTS {$tableName} (".str_replace('id INT,','id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,',$columnsSql).")";
+            $stmt = $this->conn->prepare($createTableSql);
+            $stmt->execute();
+        
+            $placeholders = array_map(function($colName) { return ":{$colName}"; }, $columnNames);
+    
+            $this->createInsertProcedure($tableName, $columnNames, $columns);
+            $this->createUpdateProcedure($tableName, $columns);
+            $this->createDeleteProcedure($tableName);
+            $this->createSelectAllProcedure($tableName);
+            $this->createSelectByIdProcedure($tableName);
+        } catch (ReflectionException $e) {
+            echo "Erro de Reflexão: " . $e->getMessage();
+        } catch (PDOException $e) {
+            echo "Erro de Banco de Dados: " . $e->getMessage();
+        } catch (Exception $e) {
+            echo "Erro: " . $e->getMessage();
+        }
+        }
+        
+        private function createInsertProcedure($tableName, $columnNames, $placeholders) {
+            $columnNamesWithoutId = array_filter($columnNames, function($colName) {
+                 return $colName ; 
+                });
+            $columnsStr = implode(', ', $columnNamesWithoutId);
+            $placeholdersStr = implode(', p_', $placeholders);
+            $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Insert{$tableName}";
+            $this->conn->exec($dropProcedureSQL);
+        
+            $sql = "
+                CREATE PROCEDURE Insert{$tableName}(".str_replace('id INT,','',str_replace(',',', IN',$placeholdersStr)).")
+                BEGIN
+                    INSERT INTO {$tableName} (".str_replace('id,','',$columnsStr).") VALUES (".str_replace('id INT,','',str_replace('INT','',str_replace('VARCHAR(255)','',str_replace('DATETIME','',str_replace('FLOAT','',str_replace('BOOLEAN','',$placeholdersStr)))))).");
+                END;
+            ";
+            $this->conn->exec($sql);
+        }
+        
+        private function createUpdateProcedure($tableName, $columns) {
+            $columnsWithoutId = array_filter($columns, function($col) { return !str_starts_with($col, "id"); });
+            $updateStatements = array_map(function($col) { 
+                $colName = explode(' ', $col)[0];
+                return "{$colName} = p_{$colName}"; 
+            }, $columnsWithoutId);
+            $updateStr = implode(', ', $updateStatements);
+            $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Update{$tableName}";
+            $this->conn->exec($dropProcedureSQL);
+            $params = implode(', ', array_map(function($col) {
+                return "p_{$col}";
+            }, $columnsWithoutId));
+            $sql = "
+                CREATE PROCEDURE Update{$tableName}(IN id INT, {$params})
+                BEGIN
+                    UPDATE {$tableName} SET {$updateStr} WHERE id = id;
+                END;
+            ";
+            $this->conn->exec($sql);
+        }
+        
+        
+        private function createDeleteProcedure($tableName) {
+            $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Delete{$tableName}";
+            $this->conn->exec($dropProcedureSQL);
+            $sql = "
+                CREATE PROCEDURE Delete{$tableName}(IN idx INT)
+                BEGIN
+                    DELETE FROM {$tableName} WHERE id = idx;
+                END;
+            ";
+        
+            $this->conn->exec($sql);
+        }
+        
+        private function createSelectAllProcedure($tableName) {
+            $dropProcedureSQL = "DROP PROCEDURE IF EXISTS SelectAll{$tableName}";
+            $this->conn->exec($dropProcedureSQL);
+            $sql = "
+                CREATE PROCEDURE SelectAll{$tableName}()
+                BEGIN
+                    SELECT * FROM {$tableName};
+                END;
+            ";
+        
+            $this->conn->exec($sql);
+        }
+        
+        private function createSelectByIdProcedure($tableName) {
+            $dropProcedureSQL = "DROP PROCEDURE IF EXISTS SelectById{$tableName}";
+            $this->conn->exec($dropProcedureSQL);
+            $sql = "
+                CREATE PROCEDURE SelectById{$tableName}(IN idx INT)
+                BEGIN
+                    SELECT * FROM {$tableName} WHERE id = idx;
+                END;
+            ";
+        
+            $this->conn->exec($sql);
+        }
 }

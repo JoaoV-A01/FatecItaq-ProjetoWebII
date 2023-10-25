@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+    <title>Gráfico de Usuários</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/Chart.js"></script>
 </head>
 <body>
     <div class="card">
@@ -17,10 +18,11 @@
             <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
             <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
         </nav>
-        <button id="getAllButton">Recuperar Todos os Produtos</button>
-        <div id="prodsList"></div>
+        <div class="grafico">
+            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+        </div>
     </div>
 
-<script src="js/getAllPro.js"></script> 
+    <script src="js/buscaIdade.js"></script> 
 </body>
 </html>
