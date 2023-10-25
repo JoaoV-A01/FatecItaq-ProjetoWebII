@@ -18,6 +18,9 @@ use ReflectionProperty;
 
  public function __construct() {
      $this->connect();
+     $this->criarTabelaEndereco();
+     $this->criarTabelaVendas();
+     $this->criarViewProdutosPorUsuario();
  }
 
  private function connect() {
@@ -152,7 +155,44 @@ public function delete($table, $conditions) {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
-    
+
+    public function criarTabelaEndereco(){
+        $sql = "
+        CREATE TABLE IF NOT EXISTS endereco (
+            ID INTEGER PRIMARY KEY AUTOINCREMENT,
+            cep TEXT NOT NULL,
+            rua TEXT NOT NULL,
+            bairro TEXT NOT NULL,
+            cidade TEXT NOT NULL,
+            uf TEXT NOT NULL,
+            idUser INTEGER,
+            FOREIGN KEY (idUser)
+            REFERENCES users (id) ON DELETE CASCADE
+        )";
+        $this->conn->exec($sql);    
+    }
+    public function criarTabelaVendas(){
+        $sql = "
+        CREATE TABLE IF NOT EXISTS vendas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id_usuario INTEGER,
+            id_produto INTEGER,
+            data_criacao DATETIME,
+            FOREIGN KEY (id_usuario) REFERENCES users(id),
+            FOREIGN KEY (id_produto) REFERENCES produtos(id)
+        )";
+        $this->conn->exec($sql);
+    }
+    public function criarViewProdutosPorUsuario(){
+        $sql = "
+        CREATE VIEW IF NOT EXISTS produtos_por_usuario AS
+        SELECT u.id, u.nome, COUNT(v.id_produto) as quantidade_produtos
+        FROM users u
+        LEFT JOIN vendas v ON u.id = v.id_usuario
+        GROUP BY u.id";
+        $this->conn->exec($sql);
+    }
+
     private function mapPhpTypeToSqlType($type) {
         switch ($type) {
             case 'int':

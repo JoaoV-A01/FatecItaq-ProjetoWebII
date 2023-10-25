@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários</title>
     <link rel="stylesheet" href="css/style.css">
+    <title> Registrar Venda </title>
 </head>
 <body>
+
     <div class="card">
         <nav>
             <div class="item"><a href="criarUser.html">Cadastrar Usuário</a></div>
@@ -17,10 +18,14 @@
             <div class="item"><a href="listarProds.html">Listar todos produtos</a></div>
             <div class="item"><a href="buscaProd.html">Buscar Produto</a></div>
         </nav>
-        <button id="getAllButton">Recuperar Todos os Usuários</button>
-        <div id="usersList"></div>
+        <form id="formVenda" method="post" action="">
+            <label for="IdUsuario">ID Usuário:</label><br>
+            <input type="number" id="idUser" name="idUser"><br><br>
+            <label for="IdProd">ID Produto:</label><br>
+            <input type="number" id="idProd" name="idProd"><br><br>
+            <button class="btnVinc" type="button" id="submitButton">Registrar Venda</button>
+        </form>
     </div>
-
-<script src="js/getAll.js"></script> 
+    <script src="js/createVenda.js"></script>
 </body>
 </html>
