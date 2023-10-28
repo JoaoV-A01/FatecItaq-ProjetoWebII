@@ -36,12 +36,12 @@ class UserController {
         $this->usuario->setNome($data['nome']);
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
-        $this->usuario->setDataNascimento($data['datanasc']);
+        $this->usuario->setDataNasc($data['datanasc']);
         if($this->db->insert('usuarios', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
-            'datanasc'=> $this->usuario->getDataNascimento(),
+            'datanasc'=> $this->usuario->getDataNasc(),
         ])){
             $this->endereco->setCep($data['cep']);
             $this->endereco->setRua($data['rua']);

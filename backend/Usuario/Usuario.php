@@ -31,10 +31,10 @@ class Usuario {
     public function setEmail($email) {
         $this->email = $email;
     }
-    public function getDataNascimento() {
+    public function getDataNasc() {
         return $this->datanasc;
     }
-    public function setDataNascimento($datanasc) {
+    public function setDataNasc($datanasc) {
         $this->datanasc = $datanasc;
     }
     public function setSenha($senha) {
@@ -43,8 +43,6 @@ class Usuario {
     public function getSenha() {
         return $this->senha;
     }
-
-    
 
     public function getType() {
         return 'User';

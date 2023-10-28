@@ -1,7 +1,7 @@
 document.getElementById('submitButton').addEventListener('click', createVenda);
 function createVenda() {
-    const idUser = document.getElementById('iduser').value;
-    const idProd = document.getElementById('idprod').value;
+    const idUser = document.getElementById('idUser').value;
+    const idProd = document.getElementById('idProd').value;
 
     if (!idUser) {
         alert("Por favor, insira um id de usuário!");

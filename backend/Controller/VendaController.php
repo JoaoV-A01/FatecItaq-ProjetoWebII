@@ -20,7 +20,7 @@ class VendaController
         $data_criacao = date('Y-m-d H:i:s');
 
         try {
-            $this->model->insert('vendas', ['id' => $idusuario, 'id' => $idproduto, 'data_criacao' => $data_criacao]);
+            $this->model->insert('vendas', ['id_usuario' => $idusuario, 'id_produto' => $idproduto, 'data_criacao' => $data_criacao]);
             return true;
         } catch (\Exception $e) {
             return false;
@@ -29,7 +29,7 @@ class VendaController
 
     public function selectprodId()
     {
-        $user = $this->model->select('produtos_por_usuario');
+        $user = $this->model->select('vendas');
         return $user;
     }
 }

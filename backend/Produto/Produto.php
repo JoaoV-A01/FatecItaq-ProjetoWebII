@@ -24,16 +24,16 @@ class Produto {
     public function setNome($nome) {
         $this->nome = $nome;
     }
-    public function getpreco() {
-        return $this->nome;
+    public function getPreco() {
+        return $this->preco;
     }
-    public function setpreco($preco) {
+    public function setPreco($preco) {
         $this->preco = $preco;
     }
-    public function setquantidade($quantidade) {
+    public function setQnt($quantidade) {
         $this->quantidade = $quantidade;
     }
-    public function getquantidade() {
+    public function getQnt() {
         return $this->quantidade;
     }
 
