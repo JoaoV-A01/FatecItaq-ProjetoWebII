@@ -10,7 +10,7 @@ function updateUser() {
         Swal.fire('Por favor, insira um id!')
         return;
     }
-    fetch('./../backend/usuarios.php?id=' + userId, { 
+    fetch('././backend/usuarios.php?id=' + userId, { 
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

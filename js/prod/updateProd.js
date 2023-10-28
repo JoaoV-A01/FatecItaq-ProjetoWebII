@@ -9,7 +9,7 @@ function updateProd() {
         quantidade: qntProd
     };
 
-    fetch('./../backend/produtos.php?id=' + prodId, { 
+    fetch('././backend/produtos.php?id=' + prodId, { 
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
 function getProd() {
     const prodId = document.getElementById("getProdId").value;
 
-    fetch('./../backend/produtos.php?id=' + prodId, {
+    fetch('././backend/produtos.php?id=' + prodId, {
         method: 'GET'
     })
     .then(response => {

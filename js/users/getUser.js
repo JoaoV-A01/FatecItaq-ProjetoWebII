@@ -1,6 +1,6 @@
 function getUser() {
     const userId = document.getElementById("getUserId").value;
-    fetch('./../backend/usuarios.php?id=' + userId, {
+    fetch('././backend/usuarios.php?id=' + userId, {
         method: 'GET'
     })
     .then(response => {
