@@ -31,7 +31,7 @@ function createUser() {
         uf: ufUsuario,
     };
 
-    fetch('./../backend/usuarios.php', { 
+    fetch('././backend/usuarios.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

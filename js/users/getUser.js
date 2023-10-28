@@ -49,7 +49,7 @@ function createEndereco() {
         uf: ufUsuario,
     };
 
-    fetch('/backend/endereco.php', { 
+    fetch('././backend/endereco.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
