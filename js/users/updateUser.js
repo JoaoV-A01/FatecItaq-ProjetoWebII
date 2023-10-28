@@ -1,11 +1,21 @@
-function deleteUser() {
+function updateUser() {
     const userId = document.getElementById("getUserId").value;
+    const userName = document.getElementById("inputNome").value;
+    const userEmail = document.getElementById("inputEmail").value;
+    const usuarioAtualizado = {
+        nome: userName,
+        email: userEmail
+    };
     if (!userId) {
         Swal.fire('Por favor, insira um id!')
         return;
     }
-    fetch('/backend/usuarios.php?id=' + userId, {
-        method: 'DELETE'
+    fetch('./../backend/usuarios.php?id=' + userId, { 
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(usuarioAtualizado)
     })
     .then(response => {
         if (!response.ok) {
@@ -19,10 +29,9 @@ function deleteUser() {
     })
     .then(data => {
         if(!data.status){
-            alert("Não pode Deletar: ");
+            alert("Não pode atualizar!");
         }else{
-            alert("Usuário deletado!");
-            document.getElementById("inputNome").value = ''; 
+            alert("Usuário atualizado!");
         } 
         
     })

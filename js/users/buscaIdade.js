@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('/backend/graficoIdade.php', {
+    fetch('./../backend/graficoIdade.php', {
         method: 'GET'
     })
     .then(response => {
@@ -22,9 +22,9 @@ function displayUsers(data) {
     let valores = [];
     const idades = data.idades;  
     console.log(idades);
-    idades.forEach(user => {
-        legendas.push(user.idades);
-        valores.push(user.pessoas);
+    idades.forEach(usuario => {
+        legendas.push(usuario.idades);
+        valores.push(usuario.pessoas);
     });
     const barColors = ["red", "green","blue","orange","brown"];
                     

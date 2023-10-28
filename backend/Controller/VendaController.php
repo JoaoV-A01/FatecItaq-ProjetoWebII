@@ -17,10 +17,10 @@ class VendaController
     {
         $idusuario = $data['idusuario'];
         $idproduto = $data['idproduto'];
-        $data_cadastro = date('Y-m-d H:i:s');
+        $data_criacao = date('Y-m-d H:i:s');
 
         try {
-            $this->model->insert('vendas', ['id_usuario' => $idusuario, 'id_produto' => $idproduto, 'data_cadastro' => $data_cadastro]);
+            $this->model->insert('vendas', ['id' => $idusuario, 'id' => $idproduto, 'data_criacao' => $data_criacao]);
             return true;
         } catch (\Exception $e) {
             return false;

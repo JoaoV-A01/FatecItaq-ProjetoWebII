@@ -4,23 +4,33 @@ namespace App\Model;
 use Exception;
 use PDO;
 use PDOException;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionProperty;
+//use ReflectionClass;
+//use ReflectionException;
+//use ReflectionProperty;
 
  class Model {
- private $host = "localhost";
- private $db_name = "test_drive";
+ private $host = "localhost"; //127.0.0.1
+ private $db_name = "bd_webii";
  private $username = "root";
- private $password = "root123";
+ private $password = "";
  private $conn;
- private $db_type = "sqlite"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+ private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+
+ /*
+ banco de dados online
+ private $host = "localhost"; //127.0.0.1
+ private $db_name = "bd_webii";
+ private $username = "root";
+ private $password = "";
+ private $conn;
+ private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+ */
 
  public function __construct() {
      $this->connect();
-     $this->criarTabelaEndereco();
-     $this->criarTabelaVendas();
-     $this->criarViewProdutosPorUsuario();
+     //$this->criarTabelaEndereco();
+     //$this->criarTabelaVendas();
+     //$this->criarViewProdutosPorUsuario();
  }
 
  private function connect() {
@@ -122,11 +132,13 @@ public function delete($table, $conditions) {
         }
         return $stmt->execute();
     }
+    /*
     public function deleteWithCustomCondition($table, $condition) {
         $query = "DELETE FROM $table WHERE $condition";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
+    */
     public function CallInsert($table, $data) {
         $placeholders = implode(", ", array_map(function($item) {
             return ":$item"; 
@@ -155,7 +167,7 @@ public function delete($table, $conditions) {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
-
+    /*
     public function criarTabelaEndereco(){
         $sql = "
         CREATE TABLE IF NOT EXISTS endereco (
@@ -171,6 +183,7 @@ public function delete($table, $conditions) {
         )";
         $this->conn->exec($sql);    
     }
+    
     public function criarTabelaVendas(){
         $sql = "
         CREATE TABLE IF NOT EXISTS vendas (
@@ -328,4 +341,5 @@ public function delete($table, $conditions) {
         
             $this->conn->exec($sql);
         }
+        */
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller; 
 
 use App\Model\Model;
 use App\Endereco\Endereco;
@@ -18,12 +18,12 @@ class UserController {
         $this->endereco = new Endereco();
     }
     public function select(){
-        $user = $this->db->select('users');
+        $user = $this->db->select('usuarios');
         
         return  $user;
     }
     public function selectId($id){
-        $user = $this->db->select('users',['id'=>$id]);
+        $user = $this->db->select('usuarios',['id'=>$id]);
         
         return  $user;
     }
@@ -37,7 +37,7 @@ class UserController {
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
         $this->usuario->setDataNascimento($data['datanasc']);
-        if($this->db->insert('users', [
+        if($this->db->insert('usuarios', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
@@ -57,13 +57,13 @@ class UserController {
         return false;
     }
     public function update($newData,$condition){
-        if($this->db->update('users', $newData, ['id'=>$condition])){
+        if($this->db->update('usuarios', $newData, ['id'=>$condition])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('users', ['id'=>$conditions])){
+        if($this->db->delete('usuarios', ['id'=>$conditions])){
             return true;
         }
         return false;

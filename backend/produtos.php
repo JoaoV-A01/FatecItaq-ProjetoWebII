@@ -24,7 +24,7 @@ switch($_SERVER["REQUEST_METHOD"]){
             echo json_encode(["status"=>true,"produtos"=>$resultado]);
         }else{
             $resultado = $prods->selectId($id);
-            echo json_encode(["status"=>true,"produto"=>$resultado[0]]);
+            echo json_encode(["status"=>true,"produtos"=>$resultado[0]]);
         }
        
     break;

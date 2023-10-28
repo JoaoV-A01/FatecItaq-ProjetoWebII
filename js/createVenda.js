@@ -13,7 +13,7 @@ function createVenda() {
         idproduto: idProd,
     };
 
-    fetch('/backend/venda.php', { 
+    fetch('./backend/venda.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

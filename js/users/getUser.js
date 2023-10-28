@@ -1,6 +1,6 @@
 function getUser() {
     const userId = document.getElementById("getUserId").value;
-    fetch('/backend/usuarios.php?id=' + userId, {
+    fetch('./../backend/usuarios.php?id=' + userId, {
         method: 'GET'
     })
     .then(response => {
@@ -18,8 +18,8 @@ function getUser() {
             alert('Usuário não encontrado')
             document.getElementById("inputNome").value = ''; 
         }else{
-            document.getElementById("inputNome").value = data.usuario.nome; 
-            document.getElementById("inputEmail").value = data.usuario.email; 
+            document.getElementById("inputNome").value = data.usuarios.nome; 
+            document.getElementById("inputEmail").value = data.usuarios.email; 
         } 
        
     })

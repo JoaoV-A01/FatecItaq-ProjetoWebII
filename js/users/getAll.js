@@ -1,6 +1,6 @@
 document.getElementById('getAllButton').addEventListener('click', getAll);
 function getAll() {
-    fetch('/backend/usuarios.php', {
+    fetch('./../backend/usuarios.php', {
         method: 'GET'
     })
     .then(response => {
@@ -25,9 +25,9 @@ function displayUsers(data) {
     usersDiv.innerHTML = ''; 
 
     const list = document.createElement('ul');
-    users.forEach(user => {
+    users.forEach(users => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${user.id} - ${user.nome} - ${user.email}`;
+        listItem.textContent = `${users.id} - ${users.nome} - ${users.email}`;
         list.appendChild(listItem);
     });
 

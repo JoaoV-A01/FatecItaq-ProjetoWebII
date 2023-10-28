@@ -1,7 +1,7 @@
 function getProd() {
     const prodId = document.getElementById("getProdId").value;
 
-    fetch('/backend/produtos.php?id=' + prodId, {
+    fetch('./../backend/produtos.php?id=' + prodId, {
         method: 'GET'
     })
     .then(response => {
@@ -19,7 +19,7 @@ function getProd() {
             alert('Produto não encontrado')
             document.getElementById("inputNome").value = ''; 
         }else{
-            document.getElementById("inputNome").value = data.produto.nome;
+            document.getElementById("inputNome").value = data.produtos.nome;
             document.getElementById("inputPreco").value = data.produtos.preco; 
             document.getElementById("inputQnt").value = data.produtos.quantidade;
         } 
