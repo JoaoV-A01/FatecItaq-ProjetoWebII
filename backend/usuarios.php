@@ -1,7 +1,7 @@
 <?php
 
 namespace App\usuarios;
-require "../vendor/autoload.php";
+require "../vendor/autoload.php"; 
 
 use App\Controller\UserController;
 

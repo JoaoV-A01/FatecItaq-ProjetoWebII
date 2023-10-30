@@ -30,7 +30,7 @@ use PDOException;
      $this->connect();
      //$this->criarTabelaEndereco();
      //$this->criarTabelaVendas();
-     //$this->criarViewProdutosPorUsuario();
+     $this->criarViewProdutosPorUsuario();
  }
 
  private function connect() {
@@ -196,16 +196,17 @@ public function delete($table, $conditions) {
         )";
         $this->conn->exec($sql);
     }
+    */
     public function criarViewProdutosPorUsuario(){
         $sql = "
         CREATE VIEW IF NOT EXISTS produtos_por_usuario AS
         SELECT u.id, u.nome, COUNT(v.id_produto) as quantidade_produtos
-        FROM users u
+        FROM usuarios u
         LEFT JOIN vendas v ON u.id = v.id_usuario
         GROUP BY u.id";
         $this->conn->exec($sql);
     }
-
+    /*
     private function mapPhpTypeToSqlType($type) {
         switch ($type) {
             case 'int':

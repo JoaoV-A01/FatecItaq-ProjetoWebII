@@ -8,8 +8,8 @@ function createVenda() {
         return;
     }
 
-    const venda = {
-        idusuario: idUser,
+    const venda = { 
+        idusuario: idUser, 
         idproduto: idProd,
     };
 
@@ -32,9 +32,9 @@ function createVenda() {
     })
     .then(data => {
         if(!data.status){
-            alert('Produto já registrado');
+            alert('Venda já registrada');
         }else{
-            alert("Registro criado: " + JSON.stringify(data));
+            alert("Venda criada");
         } 
        
     })

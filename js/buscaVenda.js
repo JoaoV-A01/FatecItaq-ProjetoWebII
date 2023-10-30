@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('./backend/venda.php', {
+    fetch('./backend/venda.php', { 
         method: 'GET'
     })
     .then(response => {
@@ -20,13 +20,13 @@ function getAll() {
 function displayUsers(data) {
     let legendas = [];
     let valores = [];
-    const produtos = data.status;  
+    const produtos = data.vendas;  
     console.log(produtos);
     produtos.forEach(user => {
         legendas.push(user.id);
-        valores.push(user.qntProds);
+        valores.push(10);
     });
-    const barColors = ["blue", "yellow","red","black","blueviolet"];
+    const barColors = ["red", "green","blue","orange","brown","yellow","cyan"];
                     
             new Chart("myChart", {
             type: "pie",

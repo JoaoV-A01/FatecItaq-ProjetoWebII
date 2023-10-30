@@ -18,7 +18,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         break;
     case "GET":
         $resultado = $vendaController->selectprodId($body);
-        echo json_encode(['status' => $resultado]);
+        echo json_encode(['status' => true, 'vendas' => $resultado]);
         break;
     default:
         header("HTTP/1.0 405 Method Not Allowed");
