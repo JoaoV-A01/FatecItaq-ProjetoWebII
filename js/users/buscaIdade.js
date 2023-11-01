@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('././backend/graficoIdade.php', {
+    fetch('././backend/graficoIdade.php', { 
         method: 'GET'
     })
     .then(response => {

@@ -197,6 +197,7 @@ public function delete($table, $conditions) {
         $this->conn->exec($sql);
     }
     */
+
     public function criarViewProdutosPorUsuario(){
         $sql = "
         CREATE VIEW IF NOT EXISTS produtos_por_usuario AS

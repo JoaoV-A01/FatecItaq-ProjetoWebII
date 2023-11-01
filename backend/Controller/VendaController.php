@@ -32,7 +32,7 @@ class VendaController
     }
     public function selectprodId()
     {
-        $user = $this->model->select('vendas');
+        $user = $this->model->select('produtos_por_usuario'); //produtos_por_usuario
         return $user;
     }
 }

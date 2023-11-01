@@ -24,12 +24,12 @@ function displayUsers(data) {
     console.log(produtos);
     produtos.forEach(user => {
         legendas.push(user.id);
-        valores.push(10);
+        valores.push(user.quantidade_produtos);
     });
     const barColors = ["red", "green","blue","orange","brown","yellow","cyan"];
                     
             new Chart("myChart", {
-            type: "pie",
+            type: "horizontalBar", //pie, bubble, bar, doughnut, horizontalBar, line, polarArea, radar, scatter
             data: {
                 labels: legendas,
                 datasets: [{

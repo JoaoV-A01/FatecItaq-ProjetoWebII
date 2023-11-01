@@ -5,13 +5,13 @@ require "../vendor/autoload.php";
 
 use App\Controller\UserController;
 
-$users = new UserController();
+$users = new UserController(); 
 
 $body = json_decode(file_get_contents('php://input'), true);
 $id=isset($_GET['id'])?$_GET['id']:'';
 switch($_SERVER["REQUEST_METHOD"]){
     case "GET";
-            $resultado = $users->selectIdade();
+            $resultado = $users->selectIdade($body);
             if(!is_array($resultado)){
                 echo json_encode(["status"=>false]);
                 exit;
