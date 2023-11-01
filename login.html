@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuários</title>
+    <title>Formulário de Login Usuário</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -15,10 +15,15 @@
             <div class="item"><a href="buscaUser.html">Buscar Usuário</a></div>
             <div class="item"><a href="graficoUsers.html">Gráfico Usuários</a></div>
         </nav>
-        <button id="getAllButton">Recuperar Todos os Usuários</button>
-        <div id="usersList"></div>
+        <form id="userForm">
+            <h2>Login</h2>
+            <label for="Email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="Senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <button class="btnUser" type="button" id="login">Logar</button>
+        </form>
     </div>
-
-<script src="js/users/getAll.js"></script> 
+    <script src="js/sistema_login/login.js"></script>
 </body>
 </html>

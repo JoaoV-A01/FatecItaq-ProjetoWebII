@@ -9,22 +9,25 @@ use PDOException;
 //use ReflectionProperty;
 
  class Model {
- private $host = "localhost"; //127.0.0.1
- private $db_name = "bd_webii";
- private $username = "root";
- private $password = "";
- private $conn;
- private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
 
- /*
- banco de dados online
- private $host = "localhost"; //127.0.0.1
+/*
+ private $host = "localhost";
  private $db_name = "bd_webii";
  private $username = "root";
  private $password = "";
  private $conn;
  private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
  */
+
+ /**/
+ //banco de dados online
+ private $host = "infinityfree.com";
+ private $db_name = "if0_35174230_bd_fatec";
+ private $username = "if0_35174230";
+ private $password = "NaU0WK26D7H";
+ private $conn;
+ private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+ 
 
  public function __construct() {
      $this->connect();
