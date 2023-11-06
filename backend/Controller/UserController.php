@@ -9,7 +9,7 @@ use App\Usuario\Usuario;
 //use App\Database\Crud;
 //use Exception;
 use Firebase\JWT\JWT;
-//use Firebase\JWT\Key;
+use Firebase\JWT\Key;
 //use stdClass;
 //use App\Cryptonita\Crypto;
 class UserController {
@@ -65,17 +65,17 @@ class UserController {
     }
     */
     public function select(){
-        $user = $this->db->select('usuario');
+        $user = $this->db->select('usuarios');
         
         return  $user;
     }
     public function selectId($id){
-        $user = $this->db->select('usuario',['id'=>$id]);
+        $user = $this->db->select('usuarios',['id'=>$id]);
         
         return  $user;
     }
     public function login($email){
-        $user = $this->db->select('usuario',['emial'=>$email]);
+        $user = $this->db->select('usuarios',['email'=>$email]);
         
         return  $user;
     }
@@ -89,7 +89,7 @@ class UserController {
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
         $this->usuario->setDataNasc($data['datanasc']);
-        if($this->db->insert('usuario', [
+        if($this->db->insert('usuarios', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
@@ -109,13 +109,13 @@ class UserController {
         return false;
     }
     public function update($newData,$condition){
-        if($this->db->update('usuario', $newData, ['id'=>$condition])){
+        if($this->db->update('usuarios', $newData, ['id'=>$condition])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('usuario', ['id'=>$conditions])){
+        if($this->db->delete('usuarios', ['id'=>$conditions])){
             return true;
         }
         return false;

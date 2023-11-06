@@ -10,16 +10,16 @@ use PDOException;
 
  class Model {
 
-/*
+/**/
  private $host = "localhost";
  private $db_name = "bd_webii";
  private $username = "root";
  private $password = "";
  private $conn;
  private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
- */
+ 
 
- /**/
+ /*
  //banco de dados online
  private $host = "infinityfree.com";
  private $db_name = "if0_35174230_bd_fatec";
@@ -27,6 +27,7 @@ use PDOException;
  private $password = "NaU0WK26D7H";
  private $conn;
  private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+ */
  
 
  public function __construct() {
