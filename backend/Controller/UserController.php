@@ -3,12 +3,12 @@
 namespace App\Controller; 
 
 use App\Model\Model;
+use App\Usuario\Usuario;
 use App\Endereco\Endereco;
 use App\Controller\EnderecoController;
-use App\Usuario\Usuario;
-use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use Exception;
 //use App\Database\Crud;
 //use stdClass;
 //use App\Cryptonita\Crypto;
@@ -24,41 +24,6 @@ class UserController {
         $this->usuario = new Usuario();
         $this->endereco = new Endereco();
         //$this->cripto=new Crypto();
-    }
-    public function validarToken($token){
-        
-        $key = "01101010"; //TOKEN
-        $algoritimo = 'HS256';
-        try {
-            $decoded = JWT::decode($token, new Key($key, $algoritimo));
-            return ['status' => true, 'message' => 'Token válido!', 'data' => $decoded];
-        } catch(Exception $e) {
-            return ['status' => false, 'message' => 'Token inválido! Motivo: ' . $e->getMessage()];
-        }
-    }
-    public function login($senha) {
-        $condicoes = ['email' => $this->usuario->getEmail()];
-        $resultado = $this->db->select($this->usuario, $condicoes);
-        $checado= 3; //$checado=$lembrar? 60*12 : 3;
-        if (!$resultado) {
-            return ['status' => false, 'message' => 'Usuário não encontrado.'];
-        }
-        if (!password_verify($senha, $resultado[0]['senha'])) {
-            return ['status' => false, 'message' => 'Senha incorreta.'];
-        }
-        $key = "01101010";
-        $algoritimo='HS256';
-            $payload = [
-                "iss" => "localhost",
-                "aud" => "localhost",
-                "iat" => time(),
-                "exp" => time() + (60 * $checado),  
-                "sub" => $this->usuario->getEmail()
-            ];
-            
-            $jwt = JWT::encode($payload, $key,$algoritimo);
-           
-        return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt];
     }
     public function select(){
         $user = $this->db->select('usuarios');
@@ -112,5 +77,39 @@ class UserController {
         return false;
         
     }
-
+    public function validarToken($token){
+        $key = "01101010";
+        $algoritimo = 'HS256';
+        try {
+            $decoded = JWT::decode($token, new Key($key, $algoritimo));
+            return ['status' => true, 'message' => 'Token válido!', 'data' => $decoded];
+        } catch(Exception $e) {
+            return ['status' => false, 'message' => 'Token inválido! Motivo: ' . $e->getMessage()];
+        }
+    }
+    public function login($senha,$email) {
+        $resultado = $this->db->select('usuarios', ['email' => $email]);
+        $checado = 3;
+        if (!$resultado) {
+            return ['status' => false, 'message' => 'Usuário não encontrado.'];
+        }
+        /*
+        if (!password_verify($senha,$resultado[0]['senha'])) {
+            return ['status' => false, 'message' => 'Senha errada.'];
+        }
+        */
+        $key = "01101010";
+        $algoritimo='HS256';
+            $payload = [
+                "iss" => "localhost",
+                "aud" => "localhost",
+                "iat" => time(),
+                "exp" => time() + (60 * $checado),  
+                "sub" => $email
+            ];
+            
+            $jwt = JWT::encode($payload, $key,$algoritimo);
+           
+        return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt];
+    }
 }

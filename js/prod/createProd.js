@@ -16,7 +16,7 @@ function createProd() {
         quantidade: qntProduto
     };
 
-    fetch('././backend/produtos.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/produtos.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

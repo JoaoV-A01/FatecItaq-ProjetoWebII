@@ -1,7 +1,7 @@
 document.getElementById('getAllButton').addEventListener('click', getAll);
 var token = localStorage.getItem('token');
 function getAll() {
-    fetch('././backend/produtos.php', {
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/produtos.php', {
         method: 'GET'
     })
     .then(response => {

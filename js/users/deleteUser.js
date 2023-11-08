@@ -4,7 +4,7 @@ function deleteUser() {
         Swal.fire('Por favor, insira um id!')
         return;
     }
-    fetch('././backend/usuarios.php?id=' + userId, {
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/usuarios.php?id=' + userId, {
         method: 'DELETE'
     })
     .then(response => {

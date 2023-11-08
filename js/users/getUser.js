@@ -1,6 +1,6 @@
 function getUser() {
     const userId = document.getElementById("getUserId").value;
-    fetch('././backend/usuarios.php?id=' + userId, {
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/usuarios.php?id=' + userId, { 
         method: 'GET'
     })
     .then(response => {
@@ -49,7 +49,7 @@ function createEndereco() {
         uf: ufUsuario,
     };
 
-    fetch('././backend/endereco.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/endereco.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

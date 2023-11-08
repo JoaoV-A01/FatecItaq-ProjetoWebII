@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('././backend/graficoIdade.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/graficoIdade.php', { 
         method: 'GET'
     })
     .then(response => {

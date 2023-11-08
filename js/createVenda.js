@@ -13,7 +13,7 @@ function createVenda() {
         idproduto: idProd,
     };
 
-    fetch('./backend/venda.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/venda.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -4,7 +4,7 @@ function deleteProd() {
         Swal.fire('Por favor, insira um id!')
         return;
     }
-    fetch('././backend/produtos.php?id=' + prodId, {
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/produtos.php?id=' + prodId, {
         method: 'DELETE'
     })
     .then(response => {

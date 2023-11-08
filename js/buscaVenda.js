@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('./backend/venda.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/venda.php', { 
         method: 'GET'
     })
     .then(response => {

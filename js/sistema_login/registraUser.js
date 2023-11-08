@@ -8,7 +8,7 @@ function createUser() {
         senha: senhaUsuario,
     };
 
-    fetch('././backend/usuarios.php', { 
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/usuarios.php', { 
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

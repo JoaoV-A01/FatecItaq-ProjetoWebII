@@ -1,6 +1,6 @@
 document.getElementById('getAllButton').addEventListener('click', getAll);
 function getAll() {
-    fetch('././backend/usuarios.php', {
+    fetch('http://localhost/FatecItaq-ProjetoWebII/backend/usuarios.php', {
         method: 'GET'
     })
     .then(response => {
