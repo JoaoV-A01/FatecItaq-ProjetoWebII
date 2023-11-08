@@ -6,10 +6,10 @@ use App\Model\Model;
 use App\Endereco\Endereco;
 use App\Controller\EnderecoController;
 use App\Usuario\Usuario;
-//use App\Database\Crud;
-//use Exception;
+use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+//use App\Database\Crud;
 //use stdClass;
 //use App\Cryptonita\Crypto;
 class UserController {
@@ -25,10 +25,9 @@ class UserController {
         $this->endereco = new Endereco();
         //$this->cripto=new Crypto();
     }
-    /*
     public function validarToken($token){
         
-        $key = TOKEN;
+        $key = "01101010"; //TOKEN
         $algoritimo = 'HS256';
         try {
             $decoded = JWT::decode($token, new Key($key, $algoritimo));
@@ -37,19 +36,17 @@ class UserController {
             return ['status' => false, 'message' => 'Token inválido! Motivo: ' . $e->getMessage()];
         }
     }
-    */
-    /*
-    public function login($senha,$lembrar) {
+    public function login($senha) {
         $condicoes = ['email' => $this->usuario->getEmail()];
-        $resultado = $this->select($this->usuario, $condicoes);
-        $checado=$lembrar? 60*12 : 3;
+        $resultado = $this->db->select($this->usuario, $condicoes);
+        $checado= 3; //$checado=$lembrar? 60*12 : 3;
         if (!$resultado) {
             return ['status' => false, 'message' => 'Usuário não encontrado.'];
         }
-        if (!password_verify($senha, $this->cripto->show($resultado[0]['senha']))) {
+        if (!password_verify($senha, $resultado[0]['senha'])) {
             return ['status' => false, 'message' => 'Senha incorreta.'];
         }
-        $key = TOKEN;
+        $key = "01101010";
         $algoritimo='HS256';
             $payload = [
                 "iss" => "localhost",
@@ -63,7 +60,6 @@ class UserController {
            
         return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt];
     }
-    */
     public function select(){
         $user = $this->db->select('usuarios');
         
@@ -71,11 +67,6 @@ class UserController {
     }
     public function selectId($id){
         $user = $this->db->select('usuarios',['id'=>$id]);
-        
-        return  $user;
-    }
-    public function login($email){
-        $user = $this->db->select('usuarios',['email'=>$email]);
         
         return  $user;
     }
