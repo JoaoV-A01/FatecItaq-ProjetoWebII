@@ -93,11 +93,9 @@ class UserController {
         if (!$resultado) {
             return ['status' => false, 'message' => 'Usuário não encontrado.'];
         }
-        /*
         if (!password_verify($senha,$resultado[0]['senha'])) {
             return ['status' => false, 'message' => 'Senha errada.'];
         }
-        */
         $key = "01101010";
         $algoritimo='HS256';
             $payload = [

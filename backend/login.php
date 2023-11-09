@@ -13,9 +13,6 @@ $users = new UserController();
 $body = json_decode(file_get_contents('php://input'), true);
 switch($_SERVER["REQUEST_METHOD"]){
     case "POST":
-        $resultado = $users->login($body['senha'], $body['email']);
-        echo json_encode($resultado);
-        /*
         if (isset($body['email'])) {
             $usuario->setEmail($body['email']);
             $email=$body['email'];
@@ -28,7 +25,6 @@ switch($_SERVER["REQUEST_METHOD"]){
             }
             echo json_encode(['status' => $resultado['status'], 'message' => $resultado['message'],'token'=>$resultado['token']]);
         }
-        */
         break;
         case "GET":
             $headers = getallheaders();
