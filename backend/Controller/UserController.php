@@ -9,29 +9,29 @@ use App\Controller\EnderecoController;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
-//use App\Database\Crud;
-//use stdClass;
-//use App\Cryptonita\Crypto;
+use App\Database\Crud;
+use stdClass;
+use App\Cryptonita\Crypto;
 class UserController {
 
     private $db;
     private $usuario;
     private $endereco;
-    //private $cripto;
+    private $cripto;
     
     public function __construct() {
         $this->db = new Model();
         $this->usuario = new Usuario();
         $this->endereco = new Endereco();
-        //$this->cripto=new Crypto();
+        $this->cripto=new Crypto();
     }
     public function select(){
-        $user = $this->db->select('usuarios');
+        $user = $this->db->select('usuario');
         
         return  $user;
     }
     public function selectId($id){
-        $user = $this->db->select('usuarios',['id'=>$id]);
+        $user = $this->db->select('usuario',['id'=>$id]);
         
         return  $user;
     }
@@ -45,7 +45,7 @@ class UserController {
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
         $this->usuario->setDataNasc($data['datanasc']);
-        if($this->db->insert('usuarios', [
+        if($this->db->insert('usuario', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
@@ -65,13 +65,13 @@ class UserController {
         return false;
     }
     public function update($newData,$condition){
-        if($this->db->update('usuarios', $newData, ['id'=>$condition])){
+        if($this->db->update('usuario', $newData, ['id'=>$condition])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('usuarios', ['id'=>$conditions])){
+        if($this->db->delete('usuario', ['id'=>$conditions])){
             return true;
         }
         return false;
@@ -82,20 +82,23 @@ class UserController {
         $algoritimo = 'HS256';
         try {
             $decoded = JWT::decode($token, new Key($key, $algoritimo));
-            return ['status' => true, 'message' => 'Token válido!', 'data' => $decoded];
+            $permissoes = $decoded->telas;
+            return ['status' => true, 'message' => 'Token válido!', 'tela'=>$permissoes];
         } catch(Exception $e) {
             return ['status' => false, 'message' => 'Token inválido! Motivo: ' . $e->getMessage()];
         }
     }
-    public function login($senha,$email) {
-        $resultado = $this->db->select('usuarios', ['email' => $email]);
-        $checado = 3;
+    public function login($senha,$lembrar) {
+        $condicoes = ['email' => $this->usuario->getEmail()];
+        $resultado = $this->select($this->usuario, $condicoes);
+        $checado=$lembrar? 60*12 : 3;
         if (!$resultado) {
             return ['status' => false, 'message' => 'Usuário não encontrado.'];
         }
-        if (!password_verify($senha,$resultado[0]['senha'])) {
-            return ['status' => false, 'message' => 'Senha errada.'];
+        if (!password_verify($senha, $this->cripto->show($resultado[0]['senha']))) {
+            return ['status' => false, 'message' => 'Senha incorreta.'];
         }
+        $permissoes = $this->selectPermissoesPorPerfil($resultado[0]['perfilid']);
         $key = "01101010";
         $algoritimo='HS256';
             $payload = [
@@ -103,11 +106,40 @@ class UserController {
                 "aud" => "localhost",
                 "iat" => time(),
                 "exp" => time() + (60 * $checado),  
-                "sub" => $email
+                "sub" => $this->usuario->getEmail(),
+                'telas'=>$permissoes
             ];
             
             $jwt = JWT::encode($payload, $key,$algoritimo);
-           
-        return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt];
+        return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt,'telas'=>$permissoes];
+    }
+    public function adicionarUsuario(){
+        return $this->insert($this->usuario);
+    }
+    
+    public function listarUsuario(){
+        return $this->select($this->usuario);
+    }
+    public function listarUsuarioDescriptografado(){
+        $resultado=$this->select($this->usuario);
+        $retorno[]=[
+            'id' => $resultado[0]['id'],
+            'nome' => $this->cripto->show($resultado[0]['nome']),
+            'email' => $this->cripto->show($resultado[0]['email']),
+            'criado' => $resultado[0]['criado'],
+        ];
+             
+        return $retorno;
+    }
+    
+    public function buscarPorEmail(string $email){
+        $condicoes = ['email' => $email];
+        $resultados = $this->select($this->usuario, $condicoes);
+        return count($resultados) > 0 ? $resultados[0] : null;
+    }
+    
+    public function removerUsuario(){
+        $condicoes = ['email' => $this->usuario->getEmail()];
+        return $this->delete($this->usuario, $condicoes);
     }
 }

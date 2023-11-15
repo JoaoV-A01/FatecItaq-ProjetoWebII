@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Usuarios e Produtos</title>
+    <title>Permissões</title>
     <script src="js/sistema_login/valToken.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -11,9 +11,29 @@
     <div class="card">
         <h1>Escolha a Opção</h1>
         <nav>
-            <div class="item"><a href="registra.html">Registro</a></div>
-            <div class="item"><a href="login.html">Login</a></div>
+            <div class="item"><a href="sistema_login.html">ADM</a></div>
+            <div class="item"><a href="projetos.html">Projetos</a></div>
+            <div class="item"><a href="equipes.html">Equipes</a></div>
         </nav>
     </div>
+    <div>
+        <h2>Perfis</h2>
+        <ul id="perfilList"></ul>
+    </div>
+    <div>
+        <h2>Gerenciar Permissões</h2>
+        <label for="perfilSelect">Perfil:</label>
+        <select id="perfilSelect" required>
+          <option value="">Selecione</option>
+        </select>
+        <br>
+        <label for="permissaoSelect">Permissão:</label>
+        <select id="permissaoSelect" required>
+            <option value="">Selecione</option>
+        </select>
+
+        <button id="addPermissaoBtn">Adicionar Permissão</button>
+      </div>
+    <script src="js/gerenciar.js"></script>
 </body>
 </html>

@@ -1,11 +1,12 @@
-document.getElementById('submitButton').addEventListener('click', createUser);
-function createUser() { 
-    const emailUsuario = document.getElementById('email').value;
-    const senhaUsuario = document.getElementById('senha').value;
-    
+document.getElementById('registrationForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const senha = document.getElementById('senha').value;
+    const resenha = document.getElementById('resenha').value;
+
     const usuario = {
-        email: emailUsuario,
-        senha: senhaUsuario,
+        email: email,
+        senha: senha
     };
 
     fetch('http://localhost/FatecItaq-ProjetoWebII/backend/usuarios.php', { 
@@ -15,23 +16,19 @@ function createUser() {
         },
         body: JSON.stringify(usuario)
     })
-    .then(response => {
-        if (!response.ok) {
-            if (response.status === 401) {
-                throw new Error('Não autorizado');
-            } else {
-                throw new Error('Sem rede ou não conseguiu localizar o recurso');
-            }
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        if(!data.status){
-            alert('Usuário já existe!')
-        }else{
-            alert("Usuário criado");
-        } 
-       
+        if (data.status) {
+            document.getElementById('message').textContent = 'Usuário registrado com sucesso!';
+            document.getElementById('email').value='';
+            document.getElementById('senha').value='';
+            document.getElementById('resenha').value='';
+        } else {
+            document.getElementById('message').textContent = 'Erro ao registrar o usuário.';
+        }
     })
-    .catch(error => alert('Erro na requisição: ' + error));
-}
+    .catch((error) => {
+        console.error('Error:', error);
+        document.getElementById('message').textContent = 'Erro ao registrar o usuário.';
+    });
+});
