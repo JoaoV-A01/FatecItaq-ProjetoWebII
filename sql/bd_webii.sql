@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2023 às 14:09
+-- Tempo de geração: 20/11/2023 às 02:10
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -72,6 +72,47 @@ CREATE TABLE `itens_venda` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `perfil`
+--
+
+CREATE TABLE `perfil` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `perfil`
+--
+
+INSERT INTO `perfil` (`id`, `nome`) VALUES
+(2, 'Adm'),
+(1, 'Vendedor');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `perfil_permissoes`
+--
+
+CREATE TABLE `perfil_permissoes` (
+  `perfilid` int(11) NOT NULL,
+  `permissao_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `permissoes`
+--
+
+CREATE TABLE `permissoes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `produtos`
 --
 
@@ -129,6 +170,7 @@ CREATE TABLE `usuarios` (
   `email` varchar(100) DEFAULT NULL,
   `datanasc` date DEFAULT NULL,
   `senha` varchar(20) DEFAULT NULL,
+  `perfilid` int(11) NOT NULL,
   `data_criado` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -136,9 +178,10 @@ CREATE TABLE `usuarios` (
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nome`, `email`, `datanasc`, `senha`, `data_criado`) VALUES
-(1, 'Lima da Silva', 'lima.silva100@gmail.com', '2000-10-18', '123', '2023-10-27 21:31:06'),
-(2, 'joji', 'joji@gmail.com', '2005-02-25', '$2y$10$aNglQbwQI/0rN', '2023-10-28 19:18:10');
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `datanasc`, `senha`, `perfilid`, `data_criado`) VALUES
+(1, 'Lima da Silva', 'lima.silva100@gmail.com', '2000-10-18', '123', 0, '2023-10-27 21:31:06'),
+(2, 'joji', 'joji@gmail.com', '2005-02-25', '$2y$10$aNglQbwQI/0rN', 0, '2023-10-28 19:18:10'),
+(5, NULL, 'jorjin@gmail.com', NULL, '$2y$10$o1tMp8Ih292Fn', 0, '2023-11-08 12:28:33');
 
 -- --------------------------------------------------------
 
@@ -202,6 +245,27 @@ ALTER TABLE `itens_venda`
   ADD KEY `id_produto` (`id_produto`);
 
 --
+-- Índices de tabela `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome` (`nome`);
+
+--
+-- Índices de tabela `perfil_permissoes`
+--
+ALTER TABLE `perfil_permissoes`
+  ADD PRIMARY KEY (`perfilid`,`permissao_id`),
+  ADD KEY `perfil_permissoes_ibfk_2` (`permissao_id`);
+
+--
+-- Índices de tabela `permissoes`
+--
+ALTER TABLE `permissoes`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nome` (`nome`);
+
+--
 -- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
@@ -217,7 +281,8 @@ ALTER TABLE `token`
 -- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `perfilid` (`perfilid`);
 
 --
 -- Índices de tabela `vendas`
@@ -244,6 +309,18 @@ ALTER TABLE `itens_venda`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `permissoes`
+--
+ALTER TABLE `permissoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
@@ -259,13 +336,24 @@ ALTER TABLE `token`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `perfil_permissoes`
+--
+ALTER TABLE `perfil_permissoes`
+  ADD CONSTRAINT `perfil_permissoes_ibfk_1` FOREIGN KEY (`perfilid`) REFERENCES `perfil` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `perfil_permissoes_ibfk_2` FOREIGN KEY (`permissao_id`) REFERENCES `permissoes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
