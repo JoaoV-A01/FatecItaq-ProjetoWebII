@@ -34,7 +34,7 @@ switch($_SERVER["REQUEST_METHOD"]){
         case "GET":
             $headers = getallheaders();
             $token = $headers['authorization'] ?? null;
-            $usuariosController = new UsuarioController($usuario);
+            $usuariosController = new UserController($usuario);
             $validationResponse = $usuariosController->validarToken($token);
             if ($token === null || !$validationResponse['status']) {
                 echo json_encode($validationResponse);

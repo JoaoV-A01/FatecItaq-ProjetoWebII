@@ -46,7 +46,4 @@ function openTab(tabName) {
     cardsContainer.appendChild(card);
   });
 
-
-
-
   });

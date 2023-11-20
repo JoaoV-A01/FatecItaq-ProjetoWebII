@@ -9,7 +9,7 @@ class PermissaoController {
     private $origesPermitidas;
     public function __construct() {
         $this->ips_permitidos = ['::1', '123.123.123.124'];
-        $this->origesPermitidas= ['http://localhost:8089','http://192.168.56.1'];
+        $this->origesPermitidas= ['http://localhost:80','http://192.168.56.1'];
         
     }
     public function autorizado(){
@@ -42,7 +42,7 @@ class PermissaoController {
             exit;
         }
         $token = $headers['Authorization'] ?? null;
-        $usuariosController = new UsuarioController($usuario);
+        $usuariosController = new UserController($usuario);
         $validationResponse = $usuariosController->validarToken($token);
         if ($token === null || !$validationResponse['status']) {
             echo json_encode(['status' => false, 'message' => $validationResponse['message']]);
@@ -58,7 +58,7 @@ class PermissaoController {
             exit;
         }
         $token = $headers['Authorization'] ?? null;
-        $usuariosController = new UsuarioController($usuario);
+        $usuariosController = new UserController($usuario);
         $validationResponse = $usuariosController->validarToken($token);
         if ($token === null || !$validationResponse['status']) {
             echo json_encode(['status' => false, 'message' => $validationResponse['message']]);

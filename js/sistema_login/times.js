@@ -24,9 +24,6 @@ document.addEventListener("DOMContentLoaded", async function() {
       `;
       cardcoluna.appendChild(container);
       timesContainer.appendChild(cardcoluna);
-    });
-  
-  
-  
+  });
     
-    });
+});

@@ -1,37 +1,39 @@
 <?php
 
-namespace App\Controller; 
+namespace App\Controller;
 
 use App\Model\Model;
-use App\Usuario\Usuario;
+use App\Database\Crud;
+use App\Model\Usuario;
 use App\Endereco\Endereco;
 use App\Controller\EnderecoController;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
-use App\Database\Crud;
 use stdClass;
 use App\Cryptonita\Crypto;
-class UserController {
+class UserController { //extends Crud arquivo com algumas funções com modificações  
 
     private $db;
     private $usuario;
     private $endereco;
     private $cripto;
     
-    public function __construct() {
+    public function __construct($usuarios) { //$usuarios
         $this->db = new Model();
         $this->usuario = new Usuario();
         $this->endereco = new Endereco();
         $this->cripto=new Crypto();
+        //parent::__construct();
+        $this->usuario=$usuarios;
     }
     public function select(){
-        $user = $this->db->select('usuario');
+        $user = $this->db->select('usuarios');
         
         return  $user;
     }
     public function selectId($id){
-        $user = $this->db->select('usuario',['id'=>$id]);
+        $user = $this->db->select('usuarios',['id'=>$id]);
         
         return  $user;
     }
@@ -45,7 +47,7 @@ class UserController {
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
         $this->usuario->setDataNasc($data['datanasc']);
-        if($this->db->insert('usuario', [
+        if($this->db->insert('usuarios', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
@@ -65,20 +67,20 @@ class UserController {
         return false;
     }
     public function update($newData,$condition){
-        if($this->db->update('usuario', $newData, ['id'=>$condition])){
+        if($this->db->update('usuarios', $newData, ['id'=>$condition])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('usuario', ['id'=>$conditions])){
+        if($this->db->delete('usuarios', ['id'=>$conditions])){
             return true;
         }
         return false;
         
     }
     public function validarToken($token){
-        $key = "01101010";
+        $key = TOKEN; //01101010
         $algoritimo = 'HS256';
         try {
             $decoded = JWT::decode($token, new Key($key, $algoritimo));
@@ -90,7 +92,8 @@ class UserController {
     }
     public function login($senha,$lembrar) {
         $condicoes = ['email' => $this->usuario->getEmail()];
-        $resultado = $this->select($this->usuario, $condicoes);
+        $resultado = $this->select($this->usuario, $condicoes); //$this->usuario
+        //$resultado = $this->db->select('usuarios', $condicoes);
         $checado=$lembrar? 60*12 : 3;
         if (!$resultado) {
             return ['status' => false, 'message' => 'Usuário não encontrado.'];
@@ -99,7 +102,7 @@ class UserController {
             return ['status' => false, 'message' => 'Senha incorreta.'];
         }
         $permissoes = $this->selectPermissoesPorPerfil($resultado[0]['perfilid']);
-        $key = "01101010";
+        $key = TOKEN; //01101010
         $algoritimo='HS256';
             $payload = [
                 "iss" => "localhost",

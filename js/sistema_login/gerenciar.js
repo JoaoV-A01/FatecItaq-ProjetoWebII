@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const token = sessionStorage.getItem('token');
   async function getPerfis() {
-      const response = await fetch(`${urlBase}backend/Router/PerfilPermissaoRouter.php`, {
+      const response = await fetch(`${urlBase}backend/perfilpermissao.php`, {
           method: 'GET',
           headers: {
               'Authorization':  token,
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return await response.json();
   }
   async function getListaPermissoes() {
-    const response = await fetch(`${urlBase}backend/Router/PermissaoRouter.php`, {
+    const response = await fetch(`${urlBase}backend/permissao.php`, {
         method: 'GET',
         headers: {
             'Authorization':  token,
@@ -35,7 +35,7 @@ async function populateDropdown() {
 populateDropdown();
 
   async function addPermissao(perfilId, permissaoName) {
-      const response = await fetch(`${urlBase}backend/Router/PerfilPermissaoRouter.php`, {
+      const response = await fetch(`${urlBase}backend/perfilpermissao.php`, {
           method: 'POST',
           headers: {
                'Authorization':  token,
@@ -47,7 +47,7 @@ populateDropdown();
   }
 
   async function deletePermissao(perfilId, permissaoName) {
-      const response = await fetch(`${urlBase}backend/Router/PerfilPermissaoRouter.php?perfilId=${perfilId}`, {
+      const response = await fetch(`${urlBase}backend/perfilpermissao.php?perfilId=${perfilId}`, {
           method: 'DELETE',
           headers: {
               'Authorization':  token,
@@ -59,7 +59,7 @@ populateDropdown();
   }
 
   async function getPermissoes(perfilId) {
-    const response = await fetch(`${urlBase}backend/Router/PerfilPermissaoRouter.php?perfilId=${perfilId}`, {
+    const response = await fetch(`${urlBase}backend/perfilpermissao.php?perfilId=${perfilId}`, {
         method: 'GET',
         headers: {
             'Authorization':  token,
@@ -154,5 +154,4 @@ populateDropdown();
 //           alert('Erro ao remover permissão.');
 //       }
 //   });
- 
 });

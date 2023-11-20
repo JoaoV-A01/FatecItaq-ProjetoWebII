@@ -8,6 +8,7 @@ class Usuario
     private string $nome;
     private string $email;
     private string $senha;
+    private $datanasc;
     private int $perfilid;
 
     public function __construct()
@@ -46,7 +47,12 @@ class Usuario
 
         $this->email = $email;
     }
-
+    public function getDataNasc() {
+        return $this->datanasc;
+    }
+    public function setDataNasc($datanasc) {
+        $this->datanasc = $datanasc;
+    }
     public function getSenha(): string
     {
         return $this->senha;

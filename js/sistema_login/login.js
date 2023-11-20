@@ -1,10 +1,11 @@
 document.getElementById("login").addEventListener("click", async function (e) {
     e.preventDefault();
+    const urlBase="http://localhost:80/FatecItaq-ProjetoWebII/"
     const email = document.getElementById("email").value;
     const password = document.getElementById("senha").value;
     const lembrar = document.getElementById("lembrar").checked;
 
-    const response = await fetch('http://localhost/FatecItaq-ProjetoWebII/backend/login.php', {
+    const response = await fetch(`${urlBase}backend/login.php`, { //${urlBase}, http://localhost/
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -15,7 +16,7 @@ document.getElementById("login").addEventListener("click", async function (e) {
 
     if (data.status) {
         sessionStorage.setItem('token', data.token);
-        window.location.href = "index.html"; 
+        window.location.href = "sistema_login.html"; 
     } else {
         document.getElementById("mensagem").innerText="Login falhou:\n " + data.message
         document.getElementById('id02').style.display='block'

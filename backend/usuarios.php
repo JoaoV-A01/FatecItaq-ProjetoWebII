@@ -3,7 +3,7 @@
 namespace App\usuarios;
 require "../vendor/autoload.php";
 
-use App\Controller\UsuarioController;
+use App\Controller\UserController;
 use App\Model\Usuario;
 
 $usuario = new Usuario();
@@ -19,16 +19,16 @@ $body = json_decode(file_get_contents('php://input'), true);
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 switch($_SERVER["REQUEST_METHOD"]){
     case "POST";
-        $usuario->setNome($body['nome']);
+        //$usuario->setNome($body['nome']);
         $usuario->setEmail($body['email']);
         $usuario->setSenha($body['senha']);
         
-        $usuariosController = new UsuarioController($usuario);
+        $usuariosController = new UserController($usuario);
         $resultado = $usuariosController->adicionarUsuario();
         echo json_encode(['status' => $resultado]);
     break;
     case "GET":
-        $usuariosController = new UsuarioController($usuario);
+        $usuariosController = new UserController($usuario);
         if(!isset($_GET['id'])){
             $resultado = $usuariosController->listarUsuarios();
             if(!$resultado){

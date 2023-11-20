@@ -4,6 +4,12 @@ document.getElementById('registrationForm').addEventListener('submit', function 
     const senha = document.getElementById('senha').value;
     const resenha = document.getElementById('resenha').value;
 
+    if(senha!=resenha){
+        document.getElementById("mensagem").innerText="As senhas estão diferentes"
+        document.getElementById('id02').style.display='block'
+        return;
+    }
+
     const usuario = {
         email: email,
         senha: senha

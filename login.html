@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Login Usuário</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/styleaTime.css">
+    <style>
+      body {
+        display: none;
+      }
+    </style>
 </head>
 <body>
     <div class="card">
@@ -23,6 +30,23 @@
             <button class="btnUser" type="button" id="login">Logar</button>
         </form>
     </div>
+
+    <div id="id02" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4">
+          <header class="w3-container w3-teal"> 
+            <span onclick="document.getElementById('id02').style.display='none'" 
+            class="w3-button w3-display-topright">&times;</span>
+            <h4>System X</h4>
+          </header>
+          <div class="w3-container">
+            <p id="mensagem"></p>
+          </div>
+          <footer class="w3-container w3-teal">
+            <p>Modal Footer</p>
+          </footer>
+        </div>
+      </div>
+
     <script src="js/sistema_login/login.js"></script>
 </body>
 </html>

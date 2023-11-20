@@ -20,7 +20,7 @@
         const telasPermitidas = jsonResponse.tela.map(tela => tela.nome);
         const nomePaginaAtual = window.location.pathname.split('/').pop().replace('.html', '');
 
-        const itensMenu = document.querySelectorAll('.w3-bar-item');
+        const itensMenu = document.querySelectorAll('.w3-bar-item'); //.w3-bar-item class das divs do menu
 
         itensMenu.forEach(item => {
             const nomeTela = item.dataset.tela; 
