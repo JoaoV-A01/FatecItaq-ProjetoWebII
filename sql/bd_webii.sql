@@ -49,23 +49,41 @@ INSERT INTO `endereco` (`id`, `cep`, `rua`, `bairro`, `cidade`, `uf`, `iduser`, 
 -- Acionadores `endereco`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_endereco` BEFORE DELETE ON `endereco` FOR EACH ROW BEGIN
     INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
     VALUES ('Exclusao', OLD.id, OLD.cep, OLD.rua, OLD.bairro, OLD.cidade, OLD.uf, OLD.iduser, OLD.data_criado);
+=======
+CREATE TRIGGER `log_delete_endereco` BEFORE DELETE ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Exclusao', OLD.id, OLD.cep, OLD.rua, OLD.bairro, OLD.cidade, OLD.uf, OLD.iduser, OLD.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_endereco` AFTER INSERT ON `endereco` FOR EACH ROW BEGIN
     INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
     VALUES ('Insercao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+=======
+CREATE TRIGGER `log_insert_endereco` AFTER INSERT ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Insercao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_endereco` AFTER UPDATE ON `endereco` FOR EACH ROW BEGIN
     INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
     VALUES ('Atualizacao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+=======
+CREATE TRIGGER `log_update_endereco` AFTER UPDATE ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Atualizacao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
@@ -249,23 +267,41 @@ CREATE TABLE `perfil_permissoes` (
 -- Acionadores `perfil_permissoes`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_perfil_permissoes` BEFORE DELETE ON `perfil_permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
     VALUES ('Exclusao', OLD.perfilid, OLD.permissao_id);
+=======
+CREATE TRIGGER `log_delete_perfil_permissoes` BEFORE DELETE ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
+    VALUES ('Exclusao', OLD.perfilid, OLD.permissao_id);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_perfil_permissoes` AFTER INSERT ON `perfil_permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
     VALUES ('Insercao', NEW.perfilid, NEW.permissao_id);
+=======
+CREATE TRIGGER `log_insert_perfil_permissoes` AFTER INSERT ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
+    VALUES ('Insercao', NEW.perfilid, NEW.permissao_id);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_perfil_permissoes` AFTER UPDATE ON `perfil_permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_perfil_permissoes ( operacao, perfilid, permissao_id)
     VALUES ('Atualizacao', NEW.perfilid, NEW.permissao_id);
+=======
+CREATE TRIGGER `log_update_perfil_permissoes` AFTER UPDATE ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes ( operacao, perfilid, permissao_id)
+    VALUES ('Atualizacao', NEW.perfilid, NEW.permissao_id);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
@@ -285,23 +321,41 @@ CREATE TABLE `permissoes` (
 -- Acionadores `permissoes`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_permissoes` BEFORE DELETE ON `permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_permissoes (operacao, id_permissoes, nome)
     VALUES ('Exclusao', OLD.id, OLD.nome);
+=======
+CREATE TRIGGER `log_delete_permissoes` BEFORE DELETE ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Exclusao', OLD.id, OLD.nome);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_permissoes` AFTER INSERT ON `permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_permissoes (operacao, id_permissoes, nome)
     VALUES ('Insercao', NEW.id, NEW.nome);
+=======
+CREATE TRIGGER `log_insert_permissoes` AFTER INSERT ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Insercao', NEW.id, NEW.nome);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_permissoes` AFTER UPDATE ON `permissoes` FOR EACH ROW BEGIN
     INSERT INTO log_permissoes (operacao, id_permissoes, nome)
     VALUES ('Atualizacao', NEW.id, NEW.nome);
+=======
+CREATE TRIGGER `log_update_permissoes` AFTER UPDATE ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Atualizacao', NEW.id, NEW.nome);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
@@ -333,23 +387,41 @@ INSERT INTO `produtos` (`id`, `nome`, `preco`, `quantidade`, `data_criado`) VALU
 -- Acionadores `produtos`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_produtos` BEFORE DELETE ON `produtos` FOR EACH ROW BEGIN
     INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
     VALUES ('Exclusao', OLD.id, OLD.nome, OLD.preco, OLD.quantidade, OLD.data_criado);
+=======
+CREATE TRIGGER `log_delete_produtos` BEFORE DELETE ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Exclusao', OLD.id, OLD.nome, OLD.preco, OLD.quantidade, OLD.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_produtos` AFTER INSERT ON `produtos` FOR EACH ROW BEGIN
     INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
     VALUES ('Insercao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+=======
+CREATE TRIGGER `log_insert_produtos` AFTER INSERT ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Insercao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_produtos` AFTER UPDATE ON `produtos` FOR EACH ROW BEGIN
     INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
     VALUES ('Atualizacao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+=======
+CREATE TRIGGER `log_update_produtos` AFTER UPDATE ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Atualizacao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
@@ -408,6 +480,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `datanasc`, `senha`, `perfilid`, 
 -- Acionadores `usuarios`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_usuarios` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
     INSERT INTO log_usuarios(
         operacao,
@@ -428,10 +501,33 @@ VALUES(
     OLD.senha,
     OLD.perfilid,
     OLD.data_criado) ;
+=======
+CREATE TRIGGER `log_delete_usuarios` BEFORE DELETE ON `usuarios` FOR EACH ROW BEGIN
+    INSERT INTO log_usuarios(
+        operacao,
+        id_usuario,
+        nome,
+        email,
+        datanasc,
+        senha,
+        perfilid,
+        data_criado
+    )
+VALUES(
+    'Exclusao',
+    OLD.id,
+    OLD.nome,
+    OLD.email,
+    OLD.datanasc,
+    OLD.senha,
+    OLD.perfilid,
+    OLD.data_criado) ;
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_usuarios` AFTER INSERT ON `usuarios` FOR EACH ROW BEGIN
     INSERT INTO log_usuarios (operacao, id_usuario, nome, email, datanasc, senha, perfilid, data_criado)
     VALUES (
@@ -444,10 +540,25 @@ CREATE TRIGGER `log_insert_usuarios` AFTER INSERT ON `usuarios` FOR EACH ROW BEG
         NEW.perfilid, 
         NEW.data_criado
     );
+=======
+CREATE TRIGGER `log_insert_usuarios` AFTER INSERT ON `usuarios` FOR EACH ROW BEGIN
+    INSERT INTO log_usuarios (operacao, id_usuario, nome, email, datanasc, senha, perfilid, data_criado)
+    VALUES (
+        'Insercao',
+        NEW.id,
+        NEW.nome, 
+        NEW.email, 
+        NEW.datanasc, 
+        NEW.senha, 
+        NEW.perfilid, 
+        NEW.data_criado
+    );
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_usuarios` AFTER UPDATE ON `usuarios` FOR EACH ROW BEGIN
     INSERT INTO log_usuarios(
         operacao,
@@ -468,6 +579,28 @@ VALUES(
     NEW.senha,
     NEW.perfilid,
     NEW.data_criado) ;
+=======
+CREATE TRIGGER `log_update_usuarios` AFTER UPDATE ON `usuarios` FOR EACH ROW BEGIN
+    INSERT INTO log_usuarios(
+        operacao,
+        id_usuario,
+        nome,
+        email,
+        datanasc,
+        senha,
+        perfilid,
+        data_criado
+    )
+VALUES(
+    'Atualizacao',
+    NEW.id,
+    NEW.nome,
+    NEW.email,
+    NEW.datanasc,
+    NEW.senha,
+    NEW.perfilid,
+    NEW.data_criado) ;
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
@@ -501,23 +634,41 @@ INSERT INTO `vendas` (`id`, `id_usuario`, `id_produto`, `data_criacao`) VALUES
 -- Acionadores `vendas`
 --
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_delete_vendas` BEFORE DELETE ON `vendas` FOR EACH ROW BEGIN
     INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
     VALUES ('Exclusao', OLD.id, OLD.id_usuario, OLD.id_produto, OLD.data_criacao);
+=======
+CREATE TRIGGER `log_delete_vendas` BEFORE DELETE ON `vendas` FOR EACH ROW BEGIN
+    INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
+    VALUES ('Exclusao', OLD.id, OLD.id_usuario, OLD.id_produto, OLD.data_criacao);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_insert_vendas` AFTER INSERT ON `vendas` FOR EACH ROW BEGIN
     INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
     VALUES ('Insercao', NEW.id, NEW.id_usuario, NEW.id_produto, NEW.data_criacao);
+=======
+CREATE TRIGGER `log_insert_vendas` AFTER INSERT ON `vendas` FOR EACH ROW BEGIN
+    INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
+    VALUES ('Insercao', NEW.id, NEW.id_usuario, NEW.id_produto, NEW.data_criacao);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
 DELIMITER $$
+<<<<<<< HEAD
 CREATE TRIGGER `log_update_vendas` AFTER UPDATE ON `vendas` FOR EACH ROW BEGIN
     INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
     VALUES ('Atualizacao', NEW.id, NEW.id_usuario, NEW.id_produto, NEW.data_criacao);
+=======
+CREATE TRIGGER `log_update_vendas` AFTER UPDATE ON `vendas` FOR EACH ROW BEGIN
+    INSERT INTO log_vendas (operacao, id, id_usuario, id_produto, data_criacao)
+    VALUES ('Atualizacao', NEW.id, NEW.id_usuario, NEW.id_produto, NEW.data_criacao);
+>>>>>>> 473f0cb7a3067ce12c215d1bae641fd808a50819
 END
 $$
 DELIMITER ;
