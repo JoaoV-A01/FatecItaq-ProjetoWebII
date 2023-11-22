@@ -10,7 +10,7 @@ document.getElementById("login").addEventListener("click", async function (e) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, senha: password,lembrar })
+        body: JSON.stringify({ email, senha: password, lembrar })
     });
     const data = await response.json();
 

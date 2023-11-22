@@ -92,7 +92,7 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
     }
     public function login($senha,$lembrar) {
         $condicoes = ['email' => $this->usuario->getEmail()];
-        $resultado = $this->select($this->usuario, $condicoes); //$this->usuario
+        $resultado = $this->db->select($this->usuario, $condicoes); //$this->usuario
         //$resultado = $this->db->select('usuarios', $condicoes);
         $checado=$lembrar? 60*12 : 3;
         if (!$resultado) {
@@ -101,7 +101,7 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
         if (!password_verify($senha, $this->cripto->show($resultado[0]['senha']))) {
             return ['status' => false, 'message' => 'Senha incorreta.'];
         }
-        $permissoes = $this->selectPermissoesPorPerfil($resultado[0]['perfilid']);
+        $permissoes = $this->db->selectPermissoesPorPerfil($resultado[0]['perfilid']);
         $key = TOKEN; //01101010
         $algoritimo='HS256';
             $payload = [
@@ -120,11 +120,11 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
         return $this->insert($this->usuario);
     }
     
-    public function listarUsuario(){
-        return $this->select($this->usuario);
+    public function listarUsuarios(){
+        return $this->db->select($this->usuario);
     }
     public function listarUsuarioDescriptografado(){
-        $resultado=$this->select($this->usuario);
+        $resultado=$this->db->select($this->usuario);
         $retorno[]=[
             'id' => $resultado[0]['id'],
             'nome' => $this->cripto->show($resultado[0]['nome']),
@@ -137,12 +137,12 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
     
     public function buscarPorEmail(string $email){
         $condicoes = ['email' => $email];
-        $resultados = $this->select($this->usuario, $condicoes);
+        $resultados = $this->db->select($this->usuario, $condicoes);
         return count($resultados) > 0 ? $resultados[0] : null;
     }
     
     public function removerUsuario(){
         $condicoes = ['email' => $this->usuario->getEmail()];
-        return $this->delete($this->usuario, $condicoes);
+        return $this->db->delete($this->usuario, $condicoes);
     }
 }

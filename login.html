@@ -5,13 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Login Usuário</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/w3.css">
+    <!-- 
+    <link rel="stylesheet" href="css/w3.css"> 
     <link rel="stylesheet" href="css/styleaTime.css">
-    <style>
-      body {
-        display: none;
-      }
-    </style>
+    -->
 </head>
 <body>
     <div class="card">
@@ -23,15 +20,16 @@
         </nav>
         <form id="userForm">
             <h2>Login</h2>
-            <label for="Email">Email:</label>
-            <input type="text" id="email" name="email" required>
-            <label for="Senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
-            <button class="btnUser" type="button" id="login">Logar</button>
+            <label for="Email">Email</label><br>
+            <input type="text" id="email" name="email" required> <br>
+            <label for="Senha">Senha</label><br>
+            <input type="password" id="senha" name="senha" required><br>
+            <button class="btnUser" type="button" id="login">Logar</button><br>
+            <input type="checkbox" id="lembrar" > Lembrar-me
         </form>
     </div>
-
-    <div id="id02" class="w3-modal">
+    <!--
+      <div id="id02" class="w3-modal">
         <div class="w3-modal-content w3-animate-zoom w3-card-4">
           <header class="w3-container w3-teal"> 
             <span onclick="document.getElementById('id02').style.display='none'" 
@@ -46,7 +44,7 @@
           </footer>
         </div>
       </div>
-
+    -->
     <script src="js/sistema_login/login.js"></script>
 </body>
 </html>
