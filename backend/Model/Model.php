@@ -24,10 +24,10 @@ use ReflectionProperty;
 
  /*
  //banco de dados online
- private $host = "infinityfree.com";
- private $db_name = "if0_35174230_bd_fatec";
- private $username = "if0_35174230";
- private $password = "NaU0WK26D7H";
+ private $host = "localhost";
+ private $db_name = "id21521132_bdfatecweb";
+ private $username = "id21521132_jv";
+ private $password = "BDFatec321@";
  private $conn;
  private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
  */
