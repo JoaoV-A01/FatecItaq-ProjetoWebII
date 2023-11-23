@@ -6,7 +6,7 @@ use App\Model\Perfil;
 use App\Model\Permissao;
 use App\Database\Crud;
 
-class PerfilPermissaoController extends Crud
+class PerfilPermissaoController extends Crud //extends Crud
 {
     public function __construct(){
         parent::__construct();

@@ -3,29 +3,25 @@
 namespace App\Controller;
 
 use App\Model\Model;
-use App\Database\Crud;
 use App\Model\Usuario;
 use App\Endereco\Endereco;
 use App\Controller\EnderecoController;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Exception;
-use stdClass;
 use App\Cryptonita\Crypto;
-class UserController { //extends Crud arquivo com algumas funções com modificações  
+class UserController { 
 
     private $db;
     private $usuario;
     private $endereco;
     private $cripto;
     
-    public function __construct($usuarios) { //$usuarios
+    public function __construct() { //$usuarios
         $this->db = new Model();
         $this->usuario = new Usuario();
         $this->endereco = new Endereco();
         $this->cripto=new Crypto();
-        //parent::__construct();
-        $this->usuario=$usuarios;
     }
     public function select(){
         $user = $this->db->select('usuarios');
@@ -116,13 +112,6 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
             $jwt = JWT::encode($payload, $key,$algoritimo);
         return ['status' => true, 'message' => 'Login bem-sucedido!','token'=>$jwt,'telas'=>$permissoes];
     }
-    public function adicionarUsuario(){
-        return $this->insert($this->usuario);
-    }
-    
-    public function listarUsuarios(){
-        return $this->db->select($this->usuario);
-    }
     public function listarUsuarioDescriptografado(){
         $resultado=$this->db->select($this->usuario);
         $retorno[]=[
@@ -133,16 +122,5 @@ class UserController { //extends Crud arquivo com algumas funções com modifica
         ];
              
         return $retorno;
-    }
-    
-    public function buscarPorEmail(string $email){
-        $condicoes = ['email' => $email];
-        $resultados = $this->db->select($this->usuario, $condicoes);
-        return count($resultados) > 0 ? $resultados[0] : null;
-    }
-    
-    public function removerUsuario(){
-        $condicoes = ['email' => $this->usuario->getEmail()];
-        return $this->db->delete($this->usuario, $condicoes);
     }
 }

@@ -1,0 +1,9 @@
+Conta 1
+Email: sylas@gmail.com
+Senha: revolucao
+Perfil ID: 2 = Adm
+
+Conta 2
+Email: lima.silva100@gmail.com
+Senha: 123
+Perfil ID: 1 = Vendedor

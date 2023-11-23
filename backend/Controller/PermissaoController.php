@@ -34,13 +34,16 @@ class PermissaoController {
             exit;
         }
     }
+    
     public function Token(){
         $usuario = new Usuario();
         $headers = getallheaders();
+        
         if(!isset($headers['Authorization'])) {
             echo json_encode(['status' => false, 'message' => "sem token"]);
             exit;
         }
+        
         $token = $headers['Authorization'] ?? null;
         $usuariosController = new UserController($usuario);
         $validationResponse = $usuariosController->validarToken($token);

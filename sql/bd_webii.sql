@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 22/11/2023 às 13:53
+-- Tempo de geração: 23/11/2023 às 02:57
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -20,100 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `bd_webii`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `endereco`
---
-
-CREATE TABLE `endereco` (
-  `id` int(11) NOT NULL,
-  `cep` varchar(10) NOT NULL,
-  `rua` varchar(100) NOT NULL,
-  `bairro` varchar(100) NOT NULL,
-  `cidade` varchar(100) NOT NULL,
-  `uf` varchar(2) NOT NULL,
-  `iduser` int(11) DEFAULT NULL,
-  `data_criado` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Despejando dados para a tabela `endereco`
---
-
-INSERT INTO `endereco` (`id`, `cep`, `rua`, `bairro`, `cidade`, `uf`, `iduser`, `data_criado`) VALUES
-(1, '08475-080', 'Rua Cachoeira Triunfo', 'Conjunto Habitacional Castro Alves', 'São Paulo', 'SP', 2, '2023-10-28 19:18:10');
-
---
--- Acionadores `endereco`
---
-DELIMITER $$
-CREATE TRIGGER `log_delete_endereco` BEFORE DELETE ON `endereco` FOR EACH ROW BEGIN
-    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
-    VALUES ('Exclusao', OLD.id, OLD.cep, OLD.rua, OLD.bairro, OLD.cidade, OLD.uf, OLD.iduser, OLD.data_criado);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_insert_endereco` AFTER INSERT ON `endereco` FOR EACH ROW BEGIN
-    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
-    VALUES ('Insercao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_update_endereco` AFTER UPDATE ON `endereco` FOR EACH ROW BEGIN
-    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
-    VALUES ('Atualizacao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estrutura stand-in para view `idades`
--- (Veja abaixo para a visão atual)
---
-CREATE TABLE `idades` (
-`idades` varchar(11)
-,`pessoas` bigint(21)
-);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `itens_venda`
---
-
-CREATE TABLE `itens_venda` (
-  `ID` int(11) NOT NULL,
-  `id_produto` int(11) DEFAULT NULL,
-  `quantidadeProduto` int(11) DEFAULT NULL,
-  `data_criacao` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `log_endereco`
---
-
-CREATE TABLE `log_endereco` (
-  `id_log` int(11) NOT NULL,
-  `id_criador` int(11) DEFAULT NULL,
-  `operacao` varchar(20) NOT NULL,
-  `data_registro` datetime NOT NULL DEFAULT current_timestamp(),
-  `id_endereco` int(11) NOT NULL,
-  `cep` varchar(10) NOT NULL,
-  `rua` varchar(100) NOT NULL,
-  `bairro` varchar(100) NOT NULL,
-  `cidade` varchar(100) NOT NULL,
-  `uf` varchar(2) NOT NULL,
-  `iduser` int(11) DEFAULT NULL,
-  `data_criado` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -211,6 +117,46 @@ CREATE TABLE `log_usuarios` (
   `data_criado` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `log_usuarios`
+--
+
+INSERT INTO `log_usuarios` (`id_log`, `id_criador`, `operacao`, `data_registro`, `id_usuario`, `nome`, `email`, `datanasc`, `senha`, `perfilid`, `data_criado`) VALUES
+(1, 0, 'Atualizacao', '2023-11-22 21:04:06', 5, 'Jorjin', 'jorjin@gmail.com', NULL, '$2y$10$o1tMp8Ih292Fn', 0, '2023-11-08 12:28:33'),
+(2, 0, 'Atualizacao', '2023-11-22 21:04:38', 5, 'Jorjin', 'jorjin@gmail.com', '2004-09-15', '$2y$10$o1tMp8Ih292Fn', 0, '2023-11-08 12:28:33'),
+(3, 0, 'Insercao', '2023-11-22 21:25:19', 6, 'Sylas ', 'sylas@gmail.com', '0000-00-00', '$2y$10$VY9JmVzoHzpFt', 0, '2023-11-22 21:25:19'),
+(4, 0, 'Atualizacao', '2023-11-22 21:27:49', 6, 'Sylas ', 'sylas@gmail.com', '1988-05-05', '$2y$10$VY9JmVzoHzpFt', 0, '2023-11-22 21:25:19'),
+(5, 0, 'Atualizacao', '2023-11-22 21:29:20', 1, 'Lima da Silva', 'lima.silva100@gmail.com', '2000-10-18', '123', 1, '2023-10-27 21:31:06'),
+(6, 0, 'Atualizacao', '2023-11-22 21:29:29', 6, 'Sylas ', 'sylas@gmail.com', '1988-05-05', '$2y$10$VY9JmVzoHzpFt', 2, '2023-11-22 21:25:19');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `log_endereco`
+--
+
+CREATE TABLE `log_endereco` (
+  `id_log` int(11) NOT NULL,
+  `id_criador` int(11) DEFAULT NULL,
+  `operacao` varchar(20) NOT NULL,
+  `data_registro` datetime NOT NULL DEFAULT current_timestamp(),
+  `id_endereco` int(11) NOT NULL,
+  `cep` varchar(10) NOT NULL,
+  `rua` varchar(100) NOT NULL,
+  `bairro` varchar(100) NOT NULL,
+  `cidade` varchar(100) NOT NULL,
+  `uf` varchar(2) NOT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `data_criado` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `log_endereco`
+--
+
+INSERT INTO `log_endereco` (`id_log`, `id_criador`, `operacao`, `data_registro`, `id_endereco`, `cep`, `rua`, `bairro`, `cidade`, `uf`, `iduser`, `data_criado`) VALUES
+(1, NULL, 'Insercao', '2023-11-22 21:25:19', 2, '01259-020', 'Rua Bruxelas', 'Sumaré', 'São Paulo', 'SP', 6, '2023-11-22 21:25:19');
+
 -- --------------------------------------------------------
 
 --
@@ -227,183 +173,6 @@ CREATE TABLE `log_vendas` (
   `id_produto` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `perfil`
---
-
-CREATE TABLE `perfil` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `perfil`
---
-
-INSERT INTO `perfil` (`id`, `nome`) VALUES
-(2, 'Adm'),
-(1, 'Vendedor');
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `perfil_permissoes`
---
-
-CREATE TABLE `perfil_permissoes` (
-  `perfilid` int(11) NOT NULL,
-  `permissao_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Acionadores `perfil_permissoes`
---
-DELIMITER $$
-CREATE TRIGGER `log_delete_perfil_permissoes` BEFORE DELETE ON `perfil_permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
-    VALUES ('Exclusao', OLD.perfilid, OLD.permissao_id);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_insert_perfil_permissoes` AFTER INSERT ON `perfil_permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
-    VALUES ('Insercao', NEW.perfilid, NEW.permissao_id);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_update_perfil_permissoes` AFTER UPDATE ON `perfil_permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_perfil_permissoes ( operacao, perfilid, permissao_id)
-    VALUES ('Atualizacao', NEW.perfilid, NEW.permissao_id);
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `permissoes`
---
-
-CREATE TABLE `permissoes` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `permissoes`
---
-
-INSERT INTO `permissoes` (`id`, `nome`) VALUES
-(1, 'buscaProd'),
-(5, 'buscaUser'),
-(2, 'criarProd'),
-(6, 'graficoUsers'),
-(3, 'graficoVendas'),
-(7, 'listarUsers'),
-(4, 'registrarVenda');
-
---
--- Acionadores `permissoes`
---
-DELIMITER $$
-CREATE TRIGGER `log_delete_permissoes` BEFORE DELETE ON `permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
-    VALUES ('Exclusao', OLD.id, OLD.nome);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_insert_permissoes` AFTER INSERT ON `permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
-    VALUES ('Insercao', NEW.id, NEW.nome);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_update_permissoes` AFTER UPDATE ON `permissoes` FOR EACH ROW BEGIN
-    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
-    VALUES ('Atualizacao', NEW.id, NEW.nome);
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `produtos`
---
-
-CREATE TABLE `produtos` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL,
-  `preco` decimal(9,2) NOT NULL,
-  `quantidade` int(11) DEFAULT NULL,
-  `data_criado` datetime DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Despejando dados para a tabela `produtos`
---
-
-INSERT INTO `produtos` (`id`, `nome`, `preco`, `quantidade`, `data_criado`) VALUES
-(1, 'Camisa Preta', 80.00, 5, '2023-10-28 19:08:21'),
-(2, 'Sanduiche', 10.00, 3, '2023-10-30 01:03:39'),
-(3, 'Creatina', 100.00, 10, '2023-10-30 01:04:02');
-
---
--- Acionadores `produtos`
---
-DELIMITER $$
-CREATE TRIGGER `log_delete_produtos` BEFORE DELETE ON `produtos` FOR EACH ROW BEGIN
-    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
-    VALUES ('Exclusao', OLD.id, OLD.nome, OLD.preco, OLD.quantidade, OLD.data_criado);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_insert_produtos` AFTER INSERT ON `produtos` FOR EACH ROW BEGIN
-    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
-    VALUES ('Insercao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `log_update_produtos` AFTER UPDATE ON `produtos` FOR EACH ROW BEGIN
-    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
-    VALUES ('Atualizacao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
-END
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Estrutura stand-in para view `produtos_por_usuario`
--- (Veja abaixo para a visão atual)
---
-CREATE TABLE `produtos_por_usuario` (
-`id` int(11)
-,`nome` varchar(50)
-,`quantidade_produtos` bigint(21)
-);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `token`
---
-
-CREATE TABLE `token` (
-  `id` int(11) NOT NULL,
-  `token` text DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  `tempo` text DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -426,9 +195,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `datanasc`, `senha`, `perfilid`, `data_criado`) VALUES
-(1, 'Lima da Silva', 'lima.silva100@gmail.com', '2000-10-18', '123', 0, '2023-10-27 21:31:06'),
+(1, 'Lima da Silva', 'lima.silva100@gmail.com', '2000-10-18', '123', 1, '2023-10-27 21:31:06'),
 (2, 'joji', 'joji@gmail.com', '2005-02-25', '$2y$10$aNglQbwQI/0rN', 0, '2023-10-28 19:18:10'),
-(5, NULL, 'jorjin@gmail.com', NULL, '$2y$10$o1tMp8Ih292Fn', 0, '2023-11-08 12:28:33');
+(5, 'Jorjin', 'jorjin@gmail.com', '2004-09-15', '$2y$10$o1tMp8Ih292Fn', 0, '2023-11-08 12:28:33'),
+(6, 'Sylas ', 'sylas@gmail.com', '1988-05-05', '$2y$10$VY9JmVzoHzpFt', 2, '2023-11-22 21:25:19');
 
 --
 -- Acionadores `usuarios`
@@ -497,6 +267,257 @@ VALUES(
 END
 $$
 DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `endereco`
+--
+
+CREATE TABLE `endereco` (
+  `id` int(11) NOT NULL,
+  `cep` varchar(10) NOT NULL,
+  `rua` varchar(100) NOT NULL,
+  `bairro` varchar(100) NOT NULL,
+  `cidade` varchar(100) NOT NULL,
+  `uf` varchar(2) NOT NULL,
+  `iduser` int(11) DEFAULT NULL,
+  `data_criado` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `endereco`
+--
+
+INSERT INTO `endereco` (`id`, `cep`, `rua`, `bairro`, `cidade`, `uf`, `iduser`, `data_criado`) VALUES
+(1, '08475-080', 'Rua Cachoeira Triunfo', 'Conjunto Habitacional Castro Alves', 'São Paulo', 'SP', 2, '2023-10-28 19:18:10'),
+(2, '01259-020', 'Rua Bruxelas', 'Sumaré', 'São Paulo', 'SP', 6, '2023-11-22 21:25:19');
+
+--
+-- Acionadores `endereco`
+--
+DELIMITER $$
+CREATE TRIGGER `log_delete_endereco` BEFORE DELETE ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Exclusao', OLD.id, OLD.cep, OLD.rua, OLD.bairro, OLD.cidade, OLD.uf, OLD.iduser, OLD.data_criado);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_insert_endereco` AFTER INSERT ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Insercao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_update_endereco` AFTER UPDATE ON `endereco` FOR EACH ROW BEGIN
+    INSERT INTO log_endereco (operacao, id_endereco, cep, rua, bairro, cidade, uf, iduser, data_criado)
+    VALUES ('Atualizacao', NEW.id, NEW.cep, NEW.rua, NEW.bairro, NEW.cidade, NEW.uf, NEW.iduser, NEW.data_criado);
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `idades`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `idades` (
+`idades` varchar(11)
+,`pessoas` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `perfil`
+--
+
+CREATE TABLE `perfil` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `perfil`
+--
+
+INSERT INTO `perfil` (`id`, `nome`) VALUES
+(2, 'Adm'),
+(1, 'Vendedor');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produtos`
+--
+
+CREATE TABLE `produtos` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `preco` decimal(9,2) NOT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `data_criado` datetime DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `nome`, `preco`, `quantidade`, `data_criado`) VALUES
+(1, 'Camisa Preta', 80.00, 5, '2023-10-28 19:08:21'),
+(2, 'Sanduiche', 10.00, 3, '2023-10-30 01:03:39'),
+(3, 'Creatina', 100.00, 10, '2023-10-30 01:04:02');
+
+--
+-- Acionadores `produtos`
+--
+DELIMITER $$
+CREATE TRIGGER `log_delete_produtos` BEFORE DELETE ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Exclusao', OLD.id, OLD.nome, OLD.preco, OLD.quantidade, OLD.data_criado);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_insert_produtos` AFTER INSERT ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Insercao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_update_produtos` AFTER UPDATE ON `produtos` FOR EACH ROW BEGIN
+    INSERT INTO log_produtos (operacao, id_produtos, nome, preco, quantidade, data_criado)
+    VALUES ('Atualizacao', NEW.id, NEW.nome, NEW.preco, NEW.quantidade, NEW.data_criado);
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `itens_venda`
+--
+
+CREATE TABLE `itens_venda` (
+  `ID` int(11) NOT NULL,
+  `id_produto` int(11) DEFAULT NULL,
+  `quantidadeProduto` int(11) DEFAULT NULL,
+  `data_criacao` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `permissoes`
+--
+
+CREATE TABLE `permissoes` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `permissoes`
+--
+
+INSERT INTO `permissoes` (`id`, `nome`) VALUES
+(1, 'buscaProd'),
+(5, 'buscaUser'),
+(2, 'criarProd'),
+(6, 'graficoUsers'),
+(3, 'graficoVendas'),
+(7, 'listarUsers'),
+(4, 'registrarVenda');
+
+--
+-- Acionadores `permissoes`
+--
+DELIMITER $$
+CREATE TRIGGER `log_delete_permissoes` BEFORE DELETE ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Exclusao', OLD.id, OLD.nome);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_insert_permissoes` AFTER INSERT ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Insercao', NEW.id, NEW.nome);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_update_permissoes` AFTER UPDATE ON `permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_permissoes (operacao, id_permissoes, nome)
+    VALUES ('Atualizacao', NEW.id, NEW.nome);
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `perfil_permissoes`
+--
+
+CREATE TABLE `perfil_permissoes` (
+  `perfilid` int(11) NOT NULL,
+  `permissao_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Acionadores `perfil_permissoes`
+--
+DELIMITER $$
+CREATE TRIGGER `log_delete_perfil_permissoes` BEFORE DELETE ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
+    VALUES ('Exclusao', OLD.perfilid, OLD.permissao_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_insert_perfil_permissoes` AFTER INSERT ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes (operacao, perfilid, permissao_id)
+    VALUES ('Insercao', NEW.perfilid, NEW.permissao_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `log_update_perfil_permissoes` AFTER UPDATE ON `perfil_permissoes` FOR EACH ROW BEGIN
+    INSERT INTO log_perfil_permissoes ( operacao, perfilid, permissao_id)
+    VALUES ('Atualizacao', NEW.perfilid, NEW.permissao_id);
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `produtos_por_usuario`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `produtos_por_usuario` (
+`id` int(11)
+,`nome` varchar(50)
+,`quantidade_produtos` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `token`
+--
+
+CREATE TABLE `token` (
+  `id` int(11) NOT NULL,
+  `token` text DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `tempo` text DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -682,7 +703,7 @@ ALTER TABLE `vendas`
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `itens_venda`
@@ -694,7 +715,7 @@ ALTER TABLE `itens_venda`
 -- AUTO_INCREMENT de tabela `log_endereco`
 --
 ALTER TABLE `log_endereco`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `log_perfil`
@@ -724,7 +745,7 @@ ALTER TABLE `log_produtos`
 -- AUTO_INCREMENT de tabela `log_usuarios`
 --
 ALTER TABLE `log_usuarios`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `log_vendas`
@@ -760,7 +781,7 @@ ALTER TABLE `token`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `vendas`

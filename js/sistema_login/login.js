@@ -1,11 +1,11 @@
 document.getElementById("login").addEventListener("click", async function (e) {
     e.preventDefault();
-    const urlBase="http://localhost:80/FatecItaq-ProjetoWebII/"
+
     const email = document.getElementById("email").value;
     const password = document.getElementById("senha").value;
     const lembrar = document.getElementById("lembrar").checked;
 
-    const response = await fetch(`${urlBase}backend/login.php`, { //${urlBase}, http://localhost/
+    const response = await fetch('http://localhost/FatecItaq-ProjetoWebII/backend/login.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

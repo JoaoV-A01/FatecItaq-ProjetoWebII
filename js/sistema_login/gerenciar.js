@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('token'); //token = 9b426114868f4e2179612445148c4985429e5138758ffeed5eeac1d1976e7443
   async function getPerfis() {
-      const response = await fetch(`${urlBase}backend/perfilpermissao.php`, {
+      const response = await fetch('http://localhost/FatecItaq-ProjetoWebII/backend/perfilpermissao.php', {
           method: 'GET',
           headers: {
               'Authorization':  token,
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
       return await response.json();
   }
   async function getListaPermissoes() {
-    const response = await fetch(`${urlBase}backend/permissao.php`, {
+    const response = await fetch('http://localhost/FatecItaq-ProjetoWebII/backend/permissao.php', {
         method: 'GET',
         headers: {
             'Authorization':  token,
@@ -26,7 +26,7 @@ async function populateDropdown() {
 
     permissoes.forEach(permissao => {
         const optionElem = document.createElement("option");
-        optionElem.value = permissao.nome;
+        optionElem.value = permissao.id;
         optionElem.textContent = permissao.nome;
         selectElem.appendChild(optionElem);
     });
@@ -35,7 +35,7 @@ async function populateDropdown() {
 populateDropdown();
 
   async function addPermissao(perfilId, permissaoName) {
-      const response = await fetch(`${urlBase}backend/perfilpermissao.php`, {
+      const response = await fetch('http://localhost/FatecItaq-ProjetoWebII/backend/perfilpermissao.php', {
           method: 'POST',
           headers: {
                'Authorization':  token,
@@ -47,7 +47,7 @@ populateDropdown();
   }
 
   async function deletePermissao(perfilId, permissaoName) {
-      const response = await fetch(`${urlBase}backend/perfilpermissao.php?perfilId=${perfilId}`, {
+      const response = await fetch(`http://localhost/FatecItaq-ProjetoWebII/backend/perfilpermissao.php?perfilId=${perfilId}`, {
           method: 'DELETE',
           headers: {
               'Authorization':  token,
@@ -59,7 +59,7 @@ populateDropdown();
   }
 
   async function getPermissoes(perfilId) {
-    const response = await fetch(`${urlBase}backend/perfilpermissao.php?perfilId=${perfilId}`, {
+    const response = await fetch(`http://localhost/FatecItaq-ProjetoWebII/backend/perfilpermissao.php?perfilId=${perfilId}`, {
         method: 'GET',
         headers: {
             'Authorization':  token,
@@ -103,9 +103,9 @@ populateDropdown();
             
                 const removeBtn = document.createElement('button');
                 removeBtn.textContent = "Remover";
-                removeBtn.classList.add("w3-button")
-                removeBtn.classList.add("w3-round")
-                removeBtn.classList.add("w3-border")
+                removeBtn.classList.add("button")
+                removeBtn.classList.add("round")
+                removeBtn.classList.add("border")
                 removeBtn.addEventListener('click', async function() {
                     const result = await deletePermissao(perfilId, permissao.nome);
                     if (result.status) {

@@ -6,7 +6,7 @@ require "../vendor/autoload.php";
 use App\Controller\UserController;
 use App\Model\Usuario;
 
-$usuario = new Usuario();
+$users = new UserController();
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: * ' );
@@ -19,34 +19,29 @@ $body = json_decode(file_get_contents('php://input'), true);
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 switch($_SERVER["REQUEST_METHOD"]){
     case "POST";
-        $usuario->setEmail($body['email']);
-        $usuario->setSenha($body['senha']);
-        
-        $usuariosController = new UserController($usuario);
-        $resultado = $usuariosController->adicionarUsuario();
-        echo json_encode(['status' => $resultado]);
-    break;
+        $resultado = $users->insert($body);
+        echo json_encode(['status'=>$resultado]);
+        break;
     case "GET":
-        $usuariosController = new UserController($usuario);
         if(!isset($_GET['id'])){
-            $resultado = $usuariosController->listarUsuarios();
-            if(!$resultado){
-                echo json_encode(["status" => false, "usuarios" => $resultado,"mensagem"=>"nenhum resultado encontrado"]);
-                exit;
-            }else{
-                echo json_encode(["status" => true, "usuarios" => $resultado]);
+            $resultado = $users->select();
+            if(!is_array($resultado)){
+                echo json_encode(["status"=>false]);
                 exit;
             }
+            echo json_encode(["status"=>true,"usuarios"=>$resultado]);
         }else{
-            $resultado = $usuariosController->buscarPorEmail($id);
-            if(!$resultado){
-                echo json_encode(["status" => false, "usuarios" => $resultado,"mensagem"=>"nenhum resultado encontrado"]);
-                exit;
-            }else{
-                echo json_encode(["status" => true, "usuarios" => $resultado[0]]);
-                exit;
-            }
+            $resultado = $users->selectId($id);
+            echo json_encode(["status"=>true,"usuarios"=>$resultado[0]]);
         }
-    
-    break;  
+       
+        break;
+        case "PUT";
+            $resultado = $users->update($body,intval($_GET['id']));
+            echo json_encode(['status'=>$resultado]);
+        break;
+        case "DELETE";
+            $resultado = $users->delete(intval($_GET['id']));
+            echo json_encode(['status'=>$resultado]);
+        break;  
 }

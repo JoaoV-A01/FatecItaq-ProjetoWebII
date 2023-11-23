@@ -26,6 +26,7 @@ $permissaoId = isset($body['permissaoId']) ? $body['permissaoId'] : '';
 $controller = new PerfilPermissaoController();
 $permitido = new PermissaoController();
 $permitido->autorizado();
+
 switch ($_SERVER["REQUEST_METHOD"]) {
     case "POST":
         
